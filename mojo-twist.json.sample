@@ -1,0 +1,12 @@
+{
+  "author": "tester",
+  "about" : "Yet another Perl hacker",
+  "title" : "Hacking",
+  "description": "Always Hacking",
+  "page_limit": 10,
+  "menu": [
+    {"title": "index", "link": "/"},
+    {"title": "tags", "link": "/tags"},
+    {"title": "archive", "link": "/archive"}
+  ]
+}

@@ -1,0 +1,21 @@
+% layout 'main';
+<div class="text">
+  <h1>Archive</h1>
+  <br />
+  % foreach my $year (@$years) {
+    <h2><%= $year->{year} %></h2>
+    <div style="margin-left:2em">
+      % foreach my $month ($year->{months}) {
+        % foreach my $articles (@$month) {
+        <%= $articles->{month} %>
+      <div style="margin-left:2em">
+        % foreach my $article (@{$articles->{articles}}) {
+          <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $article->title %></a>
+          %= include 'article-meta', article => $article
+        % }
+      </div>
+        % }
+      % }
+    </div>
+  % }
+</div>

@@ -1,0 +1,13 @@
+    <div class="article-meta">
+        <%= $article->created %> by <%= $article->author %>
+        <div class="tags">
+        % my @tags = @{$article->tags};
+        % my $commas = $#tags;
+        % my $i = 0;
+        % foreach my $tag (@tags) {
+          <a href="/tags/<%= $tag %>"><%= $tag %></a> 
+          % $i++;
+          %= ", " if $i <= $commas;
+        % }
+        </div>
+    </div>

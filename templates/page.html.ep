@@ -1,0 +1,9 @@
+% layout 'main';
+% if ($page) {
+    <div class="text">
+        <h1 class="title"><%= $title %></h1>
+        <div class="article-content">
+            %== $page->content
+        </div>
+    </div>
+% }

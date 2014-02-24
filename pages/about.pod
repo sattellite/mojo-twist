@@ -1,0 +1,4 @@
+Title: About
+
+Hello there! This is blog engine writen on perl with mojo-steriods.
+This blog engine rewriten from L<Twist> with L<Mojolicious>.

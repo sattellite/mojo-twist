@@ -1,0 +1,11 @@
+<div id="pager">
+  <span class="active">
+  % if ($pager->prev) {
+    <span class="arrow">&larr; </span><a href="/articles/<%= $pager->prev->created->year %>/<%= $pager->prev->created->month %>/<%= $pager->prev->name %>.html"><%= $pager->prev->title %></a> &nbsp;
+  % }
+|
+  % if ($pager->next) {
+    &nbsp;<a href="/articles/<%= $pager->next->created->year %>/<%= $pager->next->created->month %>/<%= $pager->next->name %>.html"><%= $pager->next->title %></a><span class="arrow"> &rarr;</span>
+  % }
+  </span>
+</div>

@@ -1,0 +1,11 @@
+% layout 'main';
+<div class="text">
+  <h1>Tags</h1>
+  <br />
+  <div class="tags">
+  % foreach my $tag (@$tags) {
+    <a href="/tags/<%= $tag->{name} %>"><%= $tag->{name} %></a>
+    <sub>(<%= $tag->{count} %>)</sub>
+  % }
+  </div>
+</div>

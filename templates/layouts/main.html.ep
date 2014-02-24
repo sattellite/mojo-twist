@@ -1,0 +1,90 @@
+% my $title = stash 'title';
+% $title = $config->{title} unless $title;
+<!doctype html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= $title %></title>
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css" />
+    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/codemirror.css" type="text/css" />
+    <link rel="stylesheet" href="/css/styles.css" type="text/css" />
+    <link rel="alternate" type="application/rss+xml" title="<%= $title %>" href="/rss.rss" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="<%= $config->{generator} %>" />
+  </head>
+  <body>
+    <div class="container">
+    <div class="row">
+      <div class="span2">&nbsp;</div>
+      <div class="span8">
+        <div class="page-header">
+          <div id="header">
+            <div id="title">
+              <a href="/"><%= $config->{title} %></a>
+              <sup><a href="/rss.rss"><img src="/rss.png" alt="RSS" /></a></sup>
+            </div>
+            <div id="description"><%= $config->{description} %></div>
+            <span id="author"><%= $config->{author} %></span>,
+            <span id="about"><%= $config->{about} %></span>
+            <div class="menu">
+              % foreach my $item (@{$config->{menu}}) {
+              <a href="<%= $item->{link} %>"><%= $item->{title} %></a>
+              % }
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="span2">&nbsp;</div>
+    </div>
+
+      <div class="row">
+          <div class="span2">&nbsp;</div>
+          <div class="span8">
+          %= content
+          </div>
+          <div class="span2">&nbsp;</div>
+      </div>
+
+      <div class="row">
+          <div class="span2">&nbsp;</div>
+          <div class="span8">
+              <div id="footer">
+              <%== $config->{footer} %>
+              </div>
+          </div>
+          <div class="span2">&nbsp;</div>
+      </div>
+      </div>
+
+      <script type="text/javascript" src="/javascripts/jquery.js"></script>
+      <script type="text/javascript" src="/javascripts/codemirror.js"></script>
+      <script type="text/javascript" src="/javascripts/perl.js"></script>
+
+      <script type="text/javascript">
+          $(document).ready(function() {
+              var editors = [];
+              $('pre.perl').each(function() {
+                  $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
+              });
+              $('textarea').each(function() {
+                  var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
+                  editors.push(editor);
+              });
+          });
+      </script>
+
+      % if ($config->{urchin}) {
+      <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '<%= $config->{urchin} %>']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+      </script>
+      % }
+  </body>
+</html>

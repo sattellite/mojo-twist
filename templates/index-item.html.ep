@@ -1,0 +1,16 @@
+  <div class="text">
+    <h2 class="title">
+      <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $article->title %></a>
+    </h2>
+    %= include 'article-meta'
+    <div class="article-content">
+      % if ($article->preview ne '') {
+      %== $article->preview;
+      <div class="more">&rarr; <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>#cut"><%= $article->preview_link %></a></div>
+      % } else {
+      %== $article->content;
+      % }
+      <div class="comment-counter pull-right"><a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>#disqus_thread"><%= $article->title %></a></div>
+            <div style="clear:both"></div>
+    </div>
+  </div>
