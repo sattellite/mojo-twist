@@ -17,3 +17,8 @@ pm_to_blib
 *sublime*
 log/*
 mojo-twist.json
+.*?\.cache$
+MANIFEST
+MANIFEST.SKIP
+MYMETA.json
+^Mojo-Twist-.*.tar.gz$

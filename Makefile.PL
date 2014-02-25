@@ -13,7 +13,7 @@ WriteMakefile(
     PL_FILES  => {},
     PREREQ_PM => {
         'Class::Load' => 0,
-        'Mojolicious' => 4.82,
+        'Mojolicious' => 4.63,
         'Time::Piece' => 0,
         'Test::Spec'  => 0,
     },
