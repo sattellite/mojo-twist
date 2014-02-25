@@ -15,4 +15,6 @@ $a = $dir->find_all(offset => '20110924T12:12:12', limit => 1);
 ok(@{$a} == 1, 'Find all articles with correct offset');
 ok($a->[0]->slug eq 'very-good', 'Find all articles with correct offset');
 
+unlink 't/articles/.cache';
+
 done_testing();

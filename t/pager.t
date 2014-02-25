@@ -21,4 +21,6 @@ ok(! $p->prev, 'should not find prev page without offset');
 $p = Mojo::Twist::Pager->new(path => 't/pager', limit => 2, offset => '20110924T12:12:12');
 ok(! $p->prev, 'should not find prev page when offset is not enough');
 
+unlink 't/pager/.cache';
+
 done_testing();

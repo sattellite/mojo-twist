@@ -21,3 +21,5 @@ describe 'tag_cloud' => sub {
 };
 
 runtests unless caller;
+
+unlink 't/tags/.cache';
