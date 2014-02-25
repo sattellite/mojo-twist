@@ -1,6 +1,5 @@
 package Mojo::Twist;
 use Mojo::Base 'Mojolicious';
-use File::Spec;
 
 our $VERSION = '0.1';
 
@@ -12,12 +11,9 @@ sub startup {
 
   # Config
   my $config = $self->plugin('JSONConfig');
-  $config->{articles_root} = File::Spec->catfile(( $config->{appdir}
-    or ($FindBin::Bin, '../') ), 'articles');
-  $config->{drafts_root}   = File::Spec->catfile(( $config->{appdir}
-    or ($FindBin::Bin, '../') ), 'articles/drafts');
-  $config->{pages_root}    = File::Spec->catfile(( $config->{appdir}
-    or ($FindBin::Bin, '../') ), 'pages');
+  $config->{articles_root} = $self->home->rel_dir('articles');
+  $config->{drafts_root}   = $self->home->rel_dir('articles/drafts');
+  $config->{pages_root}    = $self->home->rel_dir('pages');
 
   # Hook
   $self->hook(before_render => sub {
