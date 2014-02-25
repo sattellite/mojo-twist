@@ -9,8 +9,8 @@ sub new {
     my $self = shift->SUPER::new;
     my (%params) = @_;
 
-    $self->{preprocessor}   = $params{preprocessor} || Mojo::Twist::Preprocessor->new;
-    $self->{renderer}       = $params{renderer} || Mojo::Twist::Renderer->new;
+    $self->{preprocessor}   = Mojo::Twist::Preprocessor->new;
+    $self->{renderer}       = Mojo::Twist::Renderer->new;
     $self->{default_author} = $params{default_author} || 'Anonymous';
     $self->{file}           = Mojo::Twist::File->new(path => $params{file}{path});
 
