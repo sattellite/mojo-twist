@@ -9,5 +9,6 @@
     {"title": "tags", "link": "/tags"},
     {"title": "archive", "link": "/archive"},
     {"title": "about", "link": "/pages/about"}
-  ]
+  ],
+  "secrets": ["some-random-secret-string", "second-random-secret-string"]
 }

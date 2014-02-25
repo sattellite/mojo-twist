@@ -15,6 +15,8 @@ sub startup {
   $config->{drafts_root}   = $self->home->rel_dir('articles/drafts');
   $config->{pages_root}    = $self->home->rel_dir('pages');
 
+  $self->secrets($config->{secrets} || die '"secrets" is required in config file');
+
   # Hook
   $self->hook(before_render => sub {
     $config->{generator} ||= "Mojo::Twist $VERSION";
