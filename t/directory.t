@@ -12,7 +12,6 @@ use_ok 'Mojo::Twist::Directory';
 unlink 't/directory/.cache';
 
 my $d = Mojo::Twist::Directory->new(path => 't/file');
-ok($d->{ignore_re} eq '(?^:(?^:^\.)|(?^:\~$))');
 ok($d->files->[0]->{path} eq 't/file/foo.md', 'Read file path');
 ok(-f 't/file/.cache', 'Check cache');
 

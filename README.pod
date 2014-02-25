@@ -1,3 +1,5 @@
+=for HTML <a href="https://travis-ci.org/sattellite/mojo-twist"><img src="https://travis-ci.org/sattellite/mojo-twist.png?branch=master"></a>
+
 =head1 Mojo::Twist
 
 Blog engine writen on Perl with using Mojolicious.
