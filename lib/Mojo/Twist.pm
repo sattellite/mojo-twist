@@ -1,7 +1,7 @@
 package Mojo::Twist;
 use Mojo::Base 'Mojolicious';
 
-our $VERSION = '0.1';
+our $VERSION = '0.1.1';
 
 # This method will run once at server start
 sub startup {

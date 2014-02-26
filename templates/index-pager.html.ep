@@ -1,13 +1,13 @@
   <div id="pager">
     % if ($pager->prev) {
-    <a href="/?timestamp=<%= $pager->prev %>"><span class="arrow">&larr; </span>Later</a>
+    <a href="/?timestamp=<%= $pager->prev %>"><span class="arrow">&larr; </span>Prev</a>
     % } else {
-    <span class="arrow">&larr; </span>Later
+    <span class="arrow">&larr; </span>Prev
     % }
 
     % if ($pager->next) {
-    <a href="/?timestamp=<%= $pager->next %>">Earlier<span class="arrow"> &rarr;</span></a>
+    <a href="/?timestamp=<%= $pager->next %>">Next<span class="arrow"> &rarr;</span></a>
     % } else {
-    Earlier<span class="arrow"> &rarr;</span>
+    Next<span class="arrow"> &rarr;</span>
     % }
   </div>
