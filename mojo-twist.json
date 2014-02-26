@@ -10,5 +10,12 @@
     {"title": "archive", "link": "/archive"},
     {"title": "about", "link": "/pages/about"}
   ],
-  "secrets": ["some-random-secret-string", "second-random-secret-string"]
+  "secrets": ["some-random-secret-string", "second-random-secret-string"],
+
+  "hypnotoad": "Configuration for production server",
+  "hypnotoad" : {
+    "listen": ["http://127.0.0.1:5000"],
+    "workers": 2,
+    "clients": 100
+  }
 }
