@@ -1,5 +1,5 @@
 % layout 'main', title => $title;
-<div class="text">
+<article>
   <h1 class="title"><a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $title %></a></h1>
   %= include 'article-meta', article => $article
   <div class="article-content">
@@ -28,4 +28,4 @@
   <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
   <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
   % }
-</div>
+</article>

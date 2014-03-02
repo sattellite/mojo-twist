@@ -1,4 +1,4 @@
-  <div id="pager">
+  <nav>
     % if ($pager->prev) {
     <a href="/?timestamp=<%= $pager->prev %>"><span class="arrow">&larr; </span>Prev</a>
     % } else {
@@ -10,4 +10,4 @@
     % } else {
     Next<span class="arrow"> &rarr;</span>
     % }
-  </div>
+  </nav>
