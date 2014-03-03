@@ -221,6 +221,7 @@ footer {
   font-size: small;
   padding: 20px 0px;
   border-top: 1px rgba(51,51,51,0.35) solid;
+  background-color: #FFFFFF;
 }
 pre {
   display: block;
@@ -295,7 +296,7 @@ h3 small {
 h4, h5, h6 {
   line-height: 25px;
 }
-h4 { 
+h4 {
   font-size: 14px;
 }
 h4 small {
@@ -310,4 +311,18 @@ ul, ol {
 }
 li {
   line-height: 25px;
+}
+
+@media (max-width:768px) {
+  .container {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  .blurImg {
+    min-width: 100%;
+    max-width: 100%;
+  }
+  footer {
+    width: 100%;
+  }
 }
