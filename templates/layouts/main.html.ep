@@ -4,61 +4,45 @@
   <head>
     <meta charset="utf-8">
     <title><%= $title %></title>
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css" type="text/css" />
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css" type="text/css" />
-    <link rel="stylesheet" href="/css/codemirror.css" type="text/css" />
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/codemirror.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="alternate" type="application/rss+xml" title="<%= $title %>" href="/rss.rss" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="<%= $config->{generator} %>" />
   </head>
   <body>
-    <div class="container">
-    <div class="row">
-      <div class="span2">&nbsp;</div>
-      <div class="span8">
-        <div class="page-header">
-          <div id="header">
-            <div id="title">
-              <a href="/"><%= $config->{title} %></a>
-              <sup><a href="/rss.rss"><img src="/rss.png" alt="RSS" /></a></sup>
-            </div>
-            <div id="description"><%= $config->{description} %></div>
-            <span id="author"><%= $config->{author} %></span>,
-            <span id="about"><%= $config->{about} %></span>
-            <div class="menu">
-              % foreach my $item (@{$config->{menu}}) {
-              <a href="<%= $item->{link} %>"><%= $item->{title} %></a>
-              % }
-            </div>
-          </div>
-        </div>
+    <div class='blurImg'>
+      <div style="background-image: url('/bg.png')"></div>
+      <div class='blur' style="background-image: url('/bg_blur.png')"></div>
+    </div>
+    <header>
+      <div>
+        <h1>
+          <a href="/"><%= $config->{title} %></a>
+        </h1>
+        <p><%= $config->{description} %></p>
+        <p><em><%= $config->{author} %></em>, <%= $config->{about} %></p>
       </div>
-      <div class="span2">&nbsp;</div>
+      <nav role='navigation'>
+        <ul>
+        % foreach my $item (@{$config->{menu}}) {
+          <li>
+            <a href="<%= $item->{link} %>"><%= $item->{title} %></a>
+          </li>
+        % }
+        </ul>
+      </nav>
+    </header>
+    <div class='container'>
+      %= content
     </div>
 
-      <div class="row">
-          <div class="span2">&nbsp;</div>
-          <div class="span8">
-          %= content
-          </div>
-          <div class="span2">&nbsp;</div>
-      </div>
-
-      <div class="row">
-          <div class="span2">&nbsp;</div>
-          <div class="span8">
-              <div id="footer">
-              <%== $config->{footer} %>
-              </div>
-          </div>
-          <div class="span2">&nbsp;</div>
-      </div>
-      </div>
-
-      <script type="text/javascript" src="/javascripts/jquery.js"></script>
-      <script type="text/javascript" src="/javascripts/codemirror.js"></script>
-      <script type="text/javascript" src="/javascripts/perl.js"></script>
+    <footer>
+      %== $config->{footer}
+    </footer>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/codemirror.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/mode/perl/perl.min.js"></script>
 
       <script type="text/javascript">
           $(document).ready(function() {
@@ -69,6 +53,36 @@
               $('textarea').each(function() {
                   var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
                   editors.push(editor);
+              });
+              
+              // Header opacity
+              var view = $("header").height();
+              $(window).scroll(function() {
+                var top = $(window).scrollTop();
+                var oVal;
+                if (top <= view) {
+                  oVal = top / 240;
+                  return $(".blur").css("opacity", oVal);
+                }
+              });
+
+              //Active page
+              function stripTrailingSlash(str) {
+                if(str.substr(-1) == '/') {
+                  return str.substr(0, str.length - 1);
+                }
+                return str;
+              }
+              var url = window.location.pathname;
+              var activePage = stripTrailingSlash(url);
+
+              $('header nav li a').each(function(){
+                if ($(this).attr('href')) {
+                  var currentPage = stripTrailingSlash($(this).attr('href'));
+                }
+                if (activePage == currentPage) {
+                  $(this).addClass('active');
+                }
               });
           });
       </script>

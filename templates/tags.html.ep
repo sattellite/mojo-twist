@@ -1,5 +1,5 @@
 % layout 'main';
-<div class="text">
+<article>
   <h1>Tags</h1>
   <br />
   <div class="tags">
@@ -8,4 +8,4 @@
     <sub>(<%= $tag->{count} %>)</sub>
   % }
   </div>
-</div>
+</article>

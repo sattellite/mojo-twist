@@ -1,5 +1,5 @@
 % layout 'main', title => $title;
-<div class="text">
+<article>
   <h1>Tag <%= $tag %>
   <sup>
   <a href="/tags/<%= $tag %>.rss"><img src="/rss.png" alt="RSS" /></a>
@@ -10,4 +10,4 @@
     <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $article->title %></a>
     %= include 'article-meta', article => $article
   % }
-</div>
+</article>
