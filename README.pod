@@ -1,6 +1,4 @@
-=for HTML <a href="https://travis-ci.org/sattellite/mojo-twist"><img src="https://travis-ci.org/sattellite/mojo-twist.png?branch=master"></a>
-
-=head1 Mojo::Twist
+=for HTML <h1><a name="mojotwist" class="anchor" href="#mojotwist"><span class="octicon octicon-link"></span></a><a href="#___top">Mojo::Twist </a><a href="https://travis-ci.org/sattellite/mojo-twist"><img src="https://travis-ci.org/sattellite/mojo-twist.png?branch=master"></a></h1>
 
 Blog engine writen on Perl with using Mojolicious.
 This blog engine rewriten from L<Twist>.
