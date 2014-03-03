@@ -326,3 +326,12 @@ li {
     width: 100%;
   }
 }
+
+strong {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
