@@ -9,7 +9,7 @@ require Encode;
 
 my $DATE_RE      = qr/(\d\d\d\d)-?(\d?\d)-?(\d?\d)/;
 my $TIME_SEP_RE  = qr/_|:/;
-my $TIME_RE      = qr/T(\d\d)$TIME_SEP_RE?(\d\d)$TIME_SEP_RE?(\d\d)?/;
+my $TIME_RE      = qr/T?_?(\d\d)$TIME_SEP_RE?(\d\d)$TIME_SEP_RE?(\d\d)?/;
 my $TIMESTAMP_RE = qr/$DATE_RE$TIME_RE?/;
 
 sub new {
