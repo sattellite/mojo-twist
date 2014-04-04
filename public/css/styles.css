@@ -45,8 +45,9 @@ table {
 /***********************************************************/
 
 body {
-  font-size: 17px;
-  font-family: Sans-Serif;
+  font-family: 'Open Sans', Sans-Serif;
+  font-size: 20px;
+  font-weight: 400;
   color: #333332;
 }
 * {
@@ -56,35 +57,28 @@ body {
 }
 a {
   color: #8768ED;
-  text-decoration: none;
 }
-.blurImg {
+.pixImg {
   position: relative;
   width: 100%;
-  min-width: 650px;
+  min-width: 920px;
   height: 300px;
   z-index: -1;
   top: 0;
   left: 0;
+  background-color: #000;
 }
-.blurImg > div {
+.pixImg > div {
   position: fixed;
   width: 100%;
   height: 300px;
   background-repeat: no-repeat;
   -webkit-background-size: cover;
-  -moz-background-size: cover;
   background-size: cover;
   background-position: center center;
-  filter: blur(0px);
-  -webkit-filter: blur(0px);
-  -moz-filter: blur(0px);
-  -ms-filter: blur(0px);
-}
-.blur {
-  opacity: 0;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-  filter: alpha(opacity=0);
+  opacity: 0.6;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
+  filter: alpha(opacity=60);
 }
 header {
   z-index: 1;
@@ -93,26 +87,33 @@ header {
   width: 100%;
   padding: 0px 20px;
   font-size: 14px;
+  color: #fefefe;
+  text-shadow: 0px 0px 30px #1e1e1e;
 }
 header > div {
-  max-width: 650px;
+  max-width: 920px;
   margin: 0 auto;
   padding-top: 80px;
   height: 240px;
   text-align: center;
 }
-header > div a {
-  letter-spacing: 0.08em;
-  color: rgba(51,51,51,0.85);
-  line-height: 30px;
+header a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: #fefefe;
 }
 header p {
   font-size: 1.5em;
   margin-bottom: 0.7em;
-  font-family: Times New Roman;
+}
+header h1 {
+  font-weight: 700;
 }
 header nav {
-  border-top: 1px rgba(51,51,51,0.35) solid;
+  max-width: 920px;
+  margin: 0 auto;
+  height: 60px;
+  border-top: 1px rgba(255,255,255,0.5) solid;
 }
 header nav ul li {
   display: inline-block;
@@ -123,41 +124,20 @@ header nav ul li a {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
-  color: rgba(51,51,51,0.5);
+  color: rgba(255,255,255,0.65);
   -webkit-transition: color 0.3s linear;
-  -moz-transition: color 0.3s linear;
-  -o-transition: color 0.3s linear;
-  -ms-transition: color 0.3s linear;
   transition: color 0.3s linear;
   line-height: 60px;
   display: block;
+  text-shadow: 0px 0px 30px #1e1e1e;
 }
 header nav ul li a.active {
-  -webkit-box-shadow: 0px -1px 0px #333332;
-  box-shadow: 0px -1px 0px #333332;
+  -webkit-box-shadow: 0px -3px 0px -1px #fefefe;
+  box-shadow: 0px -3px 0px -1px #fefefe;
+  color: #fefefe;
 }
-nav {
-  max-width: 650px;
-  margin: 0 auto;
-  height: 60px;
-}
-h1 {
-  font-weight: 800;
-  font-size: 30px;
-  margin-bottom: 0.2em;
-}
-h2 {
-  font-size: 28px;
-  letter-spacing: -0.02em;
-  font-weight: 700;
-  font-style: normal;
-  line-height: 27px;
-  margin-top: 0.7em;
-  margin-bottom: 0.5em;
-}
-nav ul li a.active,
-nav ul li a:hover {
-  color: #333332;
+header nav ul li a:hover {
+  color: #fefefe;
 }
 .container {
   height: 100%;
@@ -169,29 +149,30 @@ nav ul li a:hover {
 }
 .container div,
 .container article {
-  max-width: 650px;
+  max-width: 920px;
   margin: 0 auto;
 }
 .container article {
   padding: 30px 0px;
-  color: #666665;
+  color: #333333;
 }
 .container .article-meta {
   padding: 10px 0px;
-  font-size: small;
+  font-size: 16px;
   font-style: italic;
-  color: #b3b3b1;
+  color: #666665;
 }
 .container .tags {
   padding-top: 0px;
 }
 .container .tags a {
   text-decoration: underline;
-  color: #b3b3b1;
+  color: #666665;
 }
 .container p {
   padding: 10px 0px;
-  color: #666665;
+  color: #333333;
+  line-height: 1.4em;
 }
 .container a {
   color: #77d 0;
@@ -201,7 +182,8 @@ nav ul li a:hover {
 }
 .container nav {
   text-align: center;
-  color: #b3b3b1;
+  color: #666665;
+  padding: 20px 0;
 }
 .container .more {
   font-weight: 700;
@@ -212,13 +194,13 @@ nav ul li a:hover {
 }
 .more,
 .comment-counter {
-  font-size: small;
+  font-size: 18px;
 }
 footer {
-  width: 650px;
+  max-width: 920px;
   margin: 0 auto;
   text-align: center;
-  font-size: small;
+  font-size: 16px;
   padding: 20px 0px;
   border-top: 1px rgba(51,51,51,0.35) solid;
   background-color: #FFFFFF;
@@ -227,45 +209,33 @@ pre {
   display: block;
   padding: 12px;
   margin: 0 0 12.5px;
-  font-size: 16.650000000000002px;
+  font-size: 18px;
   line-height: 25px;
   word-break: break-all;
   word-wrap: break-word;
   white-space: pre;
   white-space: pre-wrap;
-  background-color: #F5F5F5;
-  border: 1px solid #CCC;
+  background-color: #E2D8FF;
+  border: 1px solid #5A3EB6;
   border: 1px solid rgba(0, 0, 0, 0.15);
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
 }
-code {
-  padding: 2px 4px !important;
-  color: #DD1144 !important;
-  background-color: #F7F7F9;
-  border: 1px solid #E1E1E8;
+p code {
+  background-color: #E2D8FF;
+  font-weight: 600;
 }
-code, pre {
-  font-size: 13px;
-  padding: 0 3px 2px;
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
-  color: #333;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
-}
-pre code {
-  padding: 0;
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0);
-  border: 0;
-}
-img {
+p img {
   max-width: 100%;
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
+  -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+  display: block;
+  margin: 0 auto;
 }
 sup {
   top: -0.5em;
@@ -282,25 +252,34 @@ sub, sup {
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
   font-family: inherit;
-  font-weight: bold;
-  color: inherit;
+  font-weight: 300;
+  color: #5A3EB6;
   text-rendering: optimizelegibility;
 }
+h1 {
+  font-weight: 400;
+  font-size: 30px;
+  margin-bottom: 0.2em;
+  line-height: 32px;
+}
+h2 {
+  font-size: 30px;
+  letter-spacing: -0.02em;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 32px;
+  margin-top: 0.7em;
+  margin-bottom: 0.5em;
+}
 h3 {
-  font-size: 18px;
-  line-height: 37.5px;
+  font-size: 23px;
+  line-height: 32px;
 }
 h3 small {
   font-size: 14px;
 }
 h4, h5, h6 {
-  line-height: 25px;
-}
-h4 {
-  font-size: 14px;
-}
-h4 small {
-  font-size: 12px;
+  line-height: 28px;
 }
 ul {
   list-style: disc;
@@ -318,7 +297,7 @@ li {
     min-width: 100%;
     max-width: 100%;
   }
-  .blurImg {
+  .pixImg {
     min-width: 100%;
     max-width: 100%;
   }
