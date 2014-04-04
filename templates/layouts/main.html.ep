@@ -4,7 +4,7 @@
   <head>
     <meta charset="utf-8">
     <title><%= $title %></title>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/codemirror.min.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/styles.css" type="text/css" />
     <link rel="alternate" type="application/rss+xml" title="<%= $title %>" href="/rss.rss" />
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
@@ -12,9 +12,8 @@
     <meta name="generator" content="<%= $config->{generator} %>" />
   </head>
   <body>
-    <div class='blurImg'>
+    <div class='pixImg'>
       <div style="background-image: url('/bg.png')"></div>
-      <div class='blur' style="background-image: url('/bg_blur.png')"></div>
     </div>
     <header>
       <div>
@@ -34,6 +33,7 @@
         </ul>
       </nav>
     </header>
+
     <div class='container'>
       %= content
     </div>
@@ -42,29 +42,11 @@
       %== $config->{footer}
     </footer>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/codemirror.min.js"></script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/codemirror/3.22.0/mode/perl/perl.min.js"></script>
-
       <script type="text/javascript">
           $(document).ready(function() {
               var editors = [];
-              $('pre.perl').each(function() {
-                  $(this).replaceWith('<textarea class="code perl">' + $(this).text() + '</textarea>');
-              });
-              $('textarea').each(function() {
-                  var editor = CodeMirror.fromTextArea(this, {readOnly: true, lineNumbers: true});
-                  editors.push(editor);
-              });
-
-              // Header opacity
-              var view = $("header").height();
-              $(window).scroll(function() {
-                var top = $(window).scrollTop();
-                var oVal;
-                if (top <= view) {
-                  oVal = top / 240;
-                  return $(".blur").css("opacity", oVal);
-                }
+              $('pre').each(function() {
+                  $(this).addClass("prettyprint");
               });
 
               //Active page
@@ -87,6 +69,7 @@
               });
           });
       </script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js?skin=desert"></script>
 
       % if ($config->{urchin}) {
       <script type="text/javascript">
