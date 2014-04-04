@@ -23,8 +23,8 @@ ok( ($t->{preview_link} eq 'Keep reading'
     and $t->{preview} eq 'Hello there'), 'Article without preview_link');
 
 $t = $p->parse("Hello there");
-ok( ($t->{preview_link} eq ''
+ok( ($t->{preview_link} eq 'Keep reading'
     and $t->{content} eq 'Hello there'
-    and $t->{preview} eq ''), 'Article without preview');
+    and $t->{preview} eq 'Hello there'), 'Article without preview');
 
 done_testing();
