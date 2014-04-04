@@ -17,7 +17,7 @@ sub parse {
 
   my $cuttag = quotemeta $self->{cuttag};
 
-  my ($preview, $preview_link) = ('', '');
+  my ($preview, $preview_link);
 
   if ($content =~ s{^(.*?)\r?\n$cuttag(?: (.*?))?\r?\n}{}s) {
     $preview = $1;
@@ -25,8 +25,8 @@ sub parse {
   }
 
   return {
-    preview      => $preview,
-    preview_link => $preview_link,
+    preview      => $preview ? $preview : $content,
+    preview_link => $preview_link ? $preview_link : $self->{default_preview_link},
     content      => $content
   };
 }
