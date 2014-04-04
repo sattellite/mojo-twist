@@ -3,7 +3,7 @@
   <h1 class="title"><a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $title %></a></h1>
   %= include 'article-meta', article => $article
   <div class="article-content">
-  % if ($article->preview ne '') {
+  % if ($article->preview ne '' and $article->preview ne $article->content) {
     %== $article->preview;
     <a id="cut"></a>
   % }
