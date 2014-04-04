@@ -9,6 +9,11 @@ use File::Basename ();
 
 use constant FILE_SLURP => eval { require File::Slurp; 1 };
 
+my $DATE_RE      = qr/(\d\d\d\d)-?(\d?\d)-?(\d?\d)/;
+my $TIME_SEP_RE  = qr/_|:/;
+my $TIME_RE      = qr/T?_?(\d\d)$TIME_SEP_RE?(\d\d)$TIME_SEP_RE?(\d\d)?/;
+my $TIMESTAMP_RE = qr/$DATE_RE$TIME_RE?/;
+
 sub path {
   my $self = shift;
 
@@ -20,7 +25,7 @@ sub created {
 
   return $self->{created} if $self->{created};
 
-  my ($prefix) = File::Basename::basename($self->path) =~ m/^(.*?)-/;
+  my ($prefix) = File::Basename::basename($self->path) =~ m/^($TIMESTAMP_RE?)-/;
 
   if ($prefix && Mojo::Twist::Date->is_date($prefix)) {
     $self->{created} = Mojo::Twist::Date->new(timestamp => $prefix);
@@ -45,7 +50,7 @@ sub filename {
 
   my $filename = File::Basename::basename($self->path);
 
-  my ($prefix) = $filename =~ m/^(.*?)-/;
+  my ($prefix) = $filename =~ m/^($TIMESTAMP_RE?)-/;
   if ($prefix && Mojo::Twist::Date->is_date($prefix)) {
     $filename =~ s/^$prefix-//;
   }
