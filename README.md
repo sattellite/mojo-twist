@@ -59,6 +59,10 @@ Extention is article's format.
 Every article should have metadata. Metadata ends with an empty line. If there is a `[cut]` tag, article will be splitted into `preview` and `content`
 parts. `preview` is shown when a) article list is requested, b) rss.
 
+#### Images
+
+For images used [jQuery.LazyLoad](https://github.com/tuupola/jquery_lazyload/). Each preprocessor replace `<img src="..."` with `<img data-original="..."`.
+
 ## Drafts
 
 Drafts are available under `articles/drafts` url. Only you know the title, so it is
