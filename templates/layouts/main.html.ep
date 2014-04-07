@@ -42,7 +42,15 @@
       %== $config->{footer}
     </footer>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
       <script type="text/javascript">
+          $(function() {
+            $(".container img").lazyload({
+              skip_invisible : false,
+              effect: "fadeIn"
+            });
+          });
+
           $(document).ready(function() {
               var editors = [];
               $('pre').each(function() {

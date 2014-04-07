@@ -10,7 +10,9 @@ sub render {
     my $renderer_class = 'Mojo::Twist::Renderer::' . ucfirst $format;
     Class::Load::load_class($renderer_class);
 
-    return $renderer_class->new->render($string);
+    (my $content = $renderer_class->new->render($string)) =~ s/img\s+src/img data-original/g;
+
+    return $content;
 }
 
 1;
