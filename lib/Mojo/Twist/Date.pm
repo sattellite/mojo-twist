@@ -77,7 +77,7 @@ sub to_string {
 sub to_rss {
     my $self = shift;
 
-    my $fmt = "%a, %d %b %Y %T GMT";
+    my $fmt = "%a, %d %b %Y";
 
     return Encode::decode('UTF-8', $self->strftime($fmt));
 }
