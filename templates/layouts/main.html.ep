@@ -43,40 +43,8 @@
     </footer>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
-      <script type="text/javascript">
-          $(function() {
-            $(".container img").lazyload({
-              skip_invisible : false,
-              effect: "fadeIn"
-            });
-          });
-
-          $(document).ready(function() {
-              var editors = [];
-              $('pre').each(function() {
-                  $(this).addClass("prettyprint");
-              });
-
-              //Active page
-              function stripTrailingSlash(str) {
-                if(str.substr(-1) == '/') {
-                  return str.substr(0, str.length - 1);
-                }
-                return str;
-              }
-              var url = window.location.pathname;
-              var activePage = stripTrailingSlash(url);
-
-              $('header nav li a').each(function(){
-                if ($(this).attr('href')) {
-                  var currentPage = stripTrailingSlash($(this).attr('href'));
-                }
-                if (activePage == currentPage) {
-                  $(this).addClass('active');
-                }
-              });
-          });
-      </script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.4/waypoints.min.js"></script>
+      <script type="text/javascript" src="/custom.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js?skin=desert"></script>
 
       % if ($config->{urchin}) {

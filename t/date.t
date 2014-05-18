@@ -21,6 +21,6 @@ ok($d->is_date('2014-02-01'));
 ok($d->is_date('20140201T13:14'));
 ok(!$d->is_date('2014-02-01T13:14:15:16'));
 ok($d->to_string eq 'Wed, 01 Jan 2014');
-ok($d->to_rss eq 'Wed, 01 Jan 2014 00:00:00 GMT');
+ok($d->to_rss eq 'Wed, 01 Jan 2014');
 
 done_testing();
