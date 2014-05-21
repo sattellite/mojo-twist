@@ -8,15 +8,15 @@
       %== $article->preview;
       <div class="more">
         &rarr; <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>#cut"><%= $article->preview_link %></a>
-        <div class="comment-counter pull-right">
+        <span class="comment-counter pull-right">
           <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>#disqus_thread"><%= $article->title %></a>
-        </div>
+        </span>
       </div>
       % } else {
       %== $article->content;
-      <div class="comment-counter pull-right">
+      <span class="comment-counter pull-right">
         <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>#disqus_thread"><%= $article->title %></a>
-      </div>
+      </span>
       % }
 
       <div style="clear:both"></div>
