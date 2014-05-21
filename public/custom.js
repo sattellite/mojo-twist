@@ -1,4 +1,8 @@
 $(function() {
+  /* Async load CSS */
+  $("head").append('<link rel="stylesheet" href="/css/styles.css" type="text/css">');
+  /* END Async load CSS */
+
   /* Init Lazyload */
   $(".container img").lazyload({
     skip_invisible : false,
