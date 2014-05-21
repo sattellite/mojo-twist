@@ -45,7 +45,7 @@
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
       <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.4/waypoints.min.js"></script>
       <script type="text/javascript" src="/custom.js"></script>
-      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js?skin=desert"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js"></script>
 
       % if ($config->{urchin}) {
       <script>
