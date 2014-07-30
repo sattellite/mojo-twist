@@ -12,7 +12,7 @@ $(function() {
 
   /* Append class for prettyprint */
   var editors = [];
-  $('pre').each(function() {
+  $('.article-content > pre').each(function() {
       $(this).addClass("prettyprint");
   });
   /* END Append class for prettyprint */
