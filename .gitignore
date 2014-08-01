@@ -22,3 +22,6 @@ MANIFEST
 MANIFEST.SKIP
 MYMETA.json
 ^Mojo-Twist-.*.tar.gz$
+articles/*
+mojo-twist.json
+script/*.pid
