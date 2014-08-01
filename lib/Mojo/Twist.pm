@@ -33,7 +33,7 @@ sub startup {
   $r->get('/pages/:slug')->to('router#pages');
   $r->get('/archive')->to('router#archives');
   $r->get('/tags')->to('router#tags_all');
-  $r->get('/tags/:tag.rss')->to('router#tags_tag_rss');
+  $r->get('/tags/(:tag).rss')->to('router#tags_tag_rss');
   $r->get('/tags/:tag')->to('router#tags_tag');
 }
 
