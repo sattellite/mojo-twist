@@ -33,9 +33,9 @@ sub all {
 sub concrete {
   my $self = shift;
   my $config = $self->config;
-  my $year = $self->param('year');
-  my $month = $self->param('month');
-  my $slug = $self->param('slug');
+  my $year   = $self->param('year');
+  my $month  = $self->param('month');
+  my $slug   = $self->param('slug');
 
   my $article = Mojo::Twist::Articles->new(
     path         => $config->{articles_root},
@@ -52,7 +52,7 @@ sub concrete {
 
 sub index_rss {
   my $self = shift;
-  my $config = $self->config;
+  my $config    = $self->config;
   my $timestamp = $self->param('timestamp');
 
   my $articles = Mojo::Twist::Articles->new(
@@ -70,7 +70,7 @@ sub index_rss {
 sub drafts {
   my $self = shift;
   my $config = $self->config;
-  my $slug = $self->param('slug');
+  my $slug   = $self->param('slug');
 
   my $article = Mojo::Twist::Articles->new(
     path         => $config->{drafts_root},
@@ -88,7 +88,7 @@ sub drafts {
 sub pages {
   my $self = shift;
   my $config = $self->config;
-  my $slug = $self->param('slug');
+  my $slug   = $self->param('slug');
 
   my $page = Mojo::Twist::Articles->new(
     path         => $config->{pages_root},
@@ -106,7 +106,7 @@ sub pages {
 sub archives {
   my $self = shift;
   my $config = $self->config;
-  my $years = Mojo::Twist::Archive->new(
+  my $years  = Mojo::Twist::Archive->new(
     path         => $config->{articles_root},
     article_args => {default_author => $config->{author}}
   )->archive;
@@ -116,7 +116,7 @@ sub archives {
 
 sub tags_all {
   my $self = shift;
-  my $config = $self->config;
+  my $config    = $self->config;
   my $tag_cloud = Mojo::Twist::TagCloud->new(path => $config->{articles_root});
 
   $self->render('tags', title => 'Tags', tags  => $tag_cloud->cloud);
@@ -124,7 +124,7 @@ sub tags_all {
 
 sub tags_tag {
   my $self = shift;
-  my $config = $self->config;
+  my $config    = $self->config;
   my $timestamp = $self->param('timestamp');
   my $tag       = $self->param('tag');
 
@@ -142,7 +142,7 @@ sub tags_tag {
 
 sub tags_tag_rss {
   my $self = shift;
-  my $config = $self->config;
+  my $config    = $self->config;
   my $timestamp = $self->param('timestamp');
   my $tag       = $self->param('tag');
 

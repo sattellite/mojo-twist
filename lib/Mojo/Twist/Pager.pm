@@ -7,9 +7,9 @@ sub new {
   my $self = shift->SUPER::new;
   my (%params) = @_;
 
-  $self->{path} = $params{path};
+  $self->{path}   = $params{path};
   $self->{offset} = $params{offset};
-  $self->{limit} = $params{limit};
+  $self->{limit}  = $params{limit};
 
   $self->{articles} = Mojo::Twist::Articles->new(path => $self->{path})->find_all;
 

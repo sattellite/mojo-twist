@@ -66,8 +66,8 @@ sub format {
   return $self->{format} if $self->{format};
 
   my $filename = File::Basename::basename($self->path);
+  my $format   = '';
 
-  my $format = '';
   if ($filename =~ m/\.([^\.]+)$/) {
     $format = $1;
   }

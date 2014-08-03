@@ -5,7 +5,7 @@ use Mojo::Twist::Articles;
 
 sub new {
   my $self = shift->SUPER::new;
-  my (%params) = @_;
+  my (%params)  = @_;
   $self->{path} = $params{path};
   return $self;
 }
@@ -13,7 +13,7 @@ sub new {
 sub cloud {
   my $self = shift;
 
-  my $cloud = {};
+  my $cloud    = {};
   my $articles = Mojo::Twist::Articles->new(path => $self->{path})->find_all;
 
   foreach my $article (@$articles) {

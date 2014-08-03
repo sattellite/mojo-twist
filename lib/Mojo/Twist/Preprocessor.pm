@@ -20,7 +20,7 @@ sub parse {
   my ($preview, $preview_link);
 
   if ($content =~ s{^(.*?)\r?\n$cuttag(?: (.*?))?\r?\n}{}s) {
-    $preview = $1;
+    $preview      = $1;
     $preview_link = $2 || $self->{default_preview_link};
   }
 
