@@ -1,21 +1,18 @@
 package Mojo::Twist;
 use Mojo::Base 'Mojolicious';
-
-our $VERSION = '0.1.4';
+our $VERSION = '0.1.5';
 
 # This method will run once at server start
 sub startup {
   my $self = shift;
 
-  # Plugins
-
   # Config
-  my $config = $self->plugin('JSONConfig');
+  my $config = $self->_config;
   $config->{articles_root} = $self->home->rel_dir('articles');
   $config->{drafts_root}   = $self->home->rel_dir('articles/drafts');
   $config->{pages_root}    = $self->home->rel_dir('pages');
 
-  $self->secrets($config->{secrets} || die '"secrets" is required in config file');
+  $self->_set_secrets;
 
   # Hook
   $self->hook(before_render => sub {
@@ -37,4 +34,14 @@ sub startup {
   $r->get('/tags/:tag')->to('router#tags_tag');
 }
 
+sub _config {
+  my $self = shift;
+  my $config = $ENV{MOJO_CONFIG} ? $self->plugin('JSONConfig') : $self->config;
+  return $config;
+}
+
+sub _set_secrets {
+  my $self = shift;
+  return $self->app->{secrets} ? $self->app->{secrets} : [time];
+}
 1;
