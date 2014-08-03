@@ -14,12 +14,6 @@ my $TIME_SEP_RE  = qr/_|:/;
 my $TIME_RE      = qr/T?_?(\d\d)$TIME_SEP_RE?(\d\d)$TIME_SEP_RE?(\d\d)?/;
 my $TIMESTAMP_RE = qr/$DATE_RE$TIME_RE?/;
 
-sub path {
-  my $self = shift;
-
-  return $self->{path};
-}
-
 sub created {
   my $self = shift;
 
@@ -35,12 +29,6 @@ sub created {
   }
 
   return $self->{created};
-}
-
-sub modified {
-  my $self = shift;
-
-  return Mojo::Twist::Date->new(epoch => $self->_stat->mtime);
 }
 
 sub filename {
@@ -73,6 +61,18 @@ sub format {
   }
 
   return $self->{format} = $format;
+}
+
+sub modified {
+  my $self = shift;
+
+  return Mojo::Twist::Date->new(epoch => $self->_stat->mtime);
+}
+
+sub path {
+  my $self = shift;
+
+  return $self->{path};
 }
 
 sub slurp {

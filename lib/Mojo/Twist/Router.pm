@@ -29,6 +29,17 @@ sub all {
   $self->render('index', articles => $articles, pager => $pager);
 }
 
+sub archives {
+  my $self = shift;
+  my $config = $self->config;
+  my $years  = Mojo::Twist::Archive->new(
+    path         => $config->{articles_root},
+    article_args => {default_author => $config->{author}}
+  )->archive;
+
+  $self->render('archive', title => 'Archive', years => $years);
+}
+
 # Render concrete article
 sub concrete {
   my $self = shift;
@@ -39,6 +50,24 @@ sub concrete {
 
   my $article = Mojo::Twist::Articles->new(
     path         => $config->{articles_root},
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $slug);
+
+  if (!$article) {
+    $self->render('not_found');
+  }
+  else {
+    $self->render('article', title => $article->title, article => $article);
+  }
+}
+
+sub drafts {
+  my $self = shift;
+  my $config = $self->config;
+  my $slug   = $self->param('slug');
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $config->{drafts_root},
     article_args => {default_author => $config->{author}}
   )->find(slug => $slug);
 
@@ -67,24 +96,6 @@ sub index_rss {
       articles => $articles);
 }
 
-sub drafts {
-  my $self = shift;
-  my $config = $self->config;
-  my $slug   = $self->param('slug');
-
-  my $article = Mojo::Twist::Articles->new(
-    path         => $config->{drafts_root},
-    article_args => {default_author => $config->{author}}
-  )->find(slug => $slug);
-
-  if (!$article) {
-    $self->render('not_found');
-  }
-  else {
-    $self->render('article', title => $article->title, article => $article);
-  }
-}
-
 sub pages {
   my $self = shift;
   my $config = $self->config;
@@ -103,16 +114,6 @@ sub pages {
   }
 }
 
-sub archives {
-  my $self = shift;
-  my $config = $self->config;
-  my $years  = Mojo::Twist::Archive->new(
-    path         => $config->{articles_root},
-    article_args => {default_author => $config->{author}}
-  )->archive;
-
-  $self->render('archive', title => 'Archive', years => $years);
-}
 
 sub tags_all {
   my $self = shift;

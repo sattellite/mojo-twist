@@ -29,25 +29,17 @@ sub new {
 
 sub epoch { @_ > 1 ? $_[0]->{epoch} = $_[0] : $_[0]->{epoch} }
 
-
-sub year {
+sub is_date {
     my $self = shift;
+    my ($date) = @_;
 
-    return Time::Piece->gmtime($self->epoch)->year;
+    return $date =~ qr/^$TIMESTAMP_RE$/ ? 1 : 0;
 }
 
 sub month {
     my $self = shift;
 
     return Time::Piece->gmtime($self->epoch)->mon;
-}
-
-sub timestamp {
-    my $self = shift;
-
-    my $t = Time::Piece->gmtime($self->epoch);
-
-    return $t->strftime('%Y%m%dT%H:%M:%S');
 }
 
 sub strftime {
@@ -59,11 +51,20 @@ sub strftime {
     return $t->strftime($fmt);
 }
 
-sub is_date {
+sub timestamp {
     my $self = shift;
-    my ($date) = @_;
 
-    return $date =~ qr/^$TIMESTAMP_RE$/ ? 1 : 0;
+    my $t = Time::Piece->gmtime($self->epoch);
+
+    return $t->strftime('%Y%m%dT%H:%M:%S');
+}
+
+sub to_rss {
+    my $self = shift;
+
+    my $fmt = "%a, %d %b %Y";
+
+    return Encode::decode('UTF-8', $self->strftime($fmt));
 }
 
 sub to_string {
@@ -74,12 +75,10 @@ sub to_string {
     return Encode::decode('UTF-8', $self->strftime($fmt));
 }
 
-sub to_rss {
+sub year {
     my $self = shift;
 
-    my $fmt = "%a, %d %b %Y";
-
-    return Encode::decode('UTF-8', $self->strftime($fmt));
+    return Time::Piece->gmtime($self->epoch)->year;
 }
 
 sub _to_epoch {

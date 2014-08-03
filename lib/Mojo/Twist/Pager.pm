@@ -30,16 +30,6 @@ sub new {
   return $self;
 }
 
-sub prev {
-  my $self = shift;
-
-  my $prev = $self->{current} - $self->{limit};
-
-  return if $prev < 0;
-
-  return $self->{articles}->[$prev]->created->timestamp;
-}
-
 sub next {
   my $self = shift;
 
@@ -48,6 +38,16 @@ sub next {
   return if $next >= @{$self->{articles}};
 
   return $self->{articles}->[$next]->created->timestamp;
+}
+
+sub prev {
+  my $self = shift;
+
+  my $prev = $self->{current} - $self->{limit};
+
+  return if $prev < 0;
+
+  return $self->{articles}->[$prev]->created->timestamp;
 }
 
 1;

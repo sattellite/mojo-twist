@@ -59,12 +59,6 @@ sub _files {
   return $self->{files};
 }
 
-sub _path_to_cache {
-  my $self = shift;
-
-  return File::Spec->catfile($self->{path}, '.cache');
-}
-
 sub _load_cache {
   my $self = shift;
 
@@ -87,6 +81,12 @@ sub _load_cache {
 
     return;
   };
+}
+
+sub _path_to_cache {
+  my $self = shift;
+
+  return File::Spec->catfile($self->{path}, '.cache');
 }
 
 sub _save_cache {

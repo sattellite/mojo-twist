@@ -14,6 +14,18 @@ sub new {
   return $self;
 }
 
+sub find {
+  my $self = shift;
+  my (%params) = @_;
+
+  foreach my $file (@{$self->{directory}->files}) {
+    return $self->_build_article(file => $file)
+      if exists $params{slug} && $file->filename eq $params{slug};
+  }
+
+  return;
+}
+
 sub find_all {
   my $self = shift;
   my (%params) = @_;
@@ -35,18 +47,6 @@ sub find_all {
   }
 
   return $articles;
-}
-
-sub find {
-  my $self = shift;
-  my (%params) = @_;
-
-  foreach my $file (@{$self->{directory}->files}) {
-    return $self->_build_article(file => $file)
-      if exists $params{slug} && $file->filename eq $params{slug};
-  }
-
-  return;
 }
 
 sub _build_article {
