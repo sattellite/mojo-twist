@@ -41,7 +41,7 @@ sub archives {
 }
 
 # Render concrete article
-sub concrete {
+sub article {
   my $self = shift;
   my $config = $self->config;
   my $year   = $self->param('year');

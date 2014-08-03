@@ -28,7 +28,7 @@ sub startup {
 
   $r->get('/')->to('router#all');
   $r->get('/rss.rss')->to('router#index_rss');
-  $r->get('/articles/:year/:month/:slug')->to('router#concrete');
+  $r->get('/articles/:year/:month/:slug')->to('router#article');
   $r->get('/drafts/:slug')->to('router#drafts');
   $r->get('/pages/:slug')->to('router#pages');
   $r->get('/archive')->to('router#archives');
