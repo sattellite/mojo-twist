@@ -2,10 +2,10 @@
 
 [![Build Status](https://travis-ci.org/sattellite/mojo-twist.svg?branch=master)](https://travis-ci.org/sattellite/mojo-twist)
 
-Blog engine writen on Perl with using Mojolicious.
+Blog engine writen on Perl and Mojolicious.
 This blog engine rewriten from [Twist](https://github.com/vti/twist).
 
-![Screenshot](http://sattellite.me/screenshot.png)
+![Default browser](http://sattellite.me/screenshot1.png)
 
 ## Features
 
@@ -22,12 +22,13 @@ This blog engine rewriten from [Twist](https://github.com/vti/twist).
 
     $ git clone http://github.com/sattellite/mojo-twist.git
     $ cd mojo-twist
+    $ cp mojo-twist.json.example mojo-twist.json
     $ morbo script/mojo_twist
     Server available at http://*:3000.
 
 ## Configuration
 
-Copy `mojo-twist.json.sample` to `mojo-twist.json` and change it to fit your needs.
+Copy `mojo-twist.json.example` to `mojo-twist.json` and change it to fit your needs.
 
 ## Writing articles
 
@@ -53,19 +54,36 @@ Extention is article's format.
 
     [cut] Read more
 
-    This is my first article. It is in C<pod> format. And I can use all kind of
-    B<tags>.
+    This is my first article. It is in `md` format. And I can use all kind of
+    **tags**.
 
 Every article should have metadata. Metadata ends with an empty line. If there is a `[cut]` tag, article will be splitted into `preview` and `content`
-parts. `preview` is shown when a) article list is requested, b) rss.
+parts. `preview` is shown when:
+- article list is requested,
+- rss.
 
 #### Images
 
 For images used [jQuery.LazyLoad](https://github.com/tuupola/jquery_lazyload/). Each preprocessor replace `<img src="..."` with `<img data-original="..."`.
 
+#### Responsive design
+
+Design of blog is responsive and have good view in desktop and mobile browsers.
+
+![Mobile browser](http://sattellite.me/screenshot2.png)
+
+#### Google Analytics and Yandex.Metrika
+
+In configuration file you can specify your unique keys for Google Analytics or/and Yandex.Metrika.
+All needed scripts will be included in templates if theirs keys was setted.
+
+#### Disqus
+
+If you have `disqus` account then you can include disqus comments for each article by specifying your `disqus shortname`.
+
 ## Drafts
 
-Drafts are available under `articles/drafts` url. Only you know the title, so it is
+Drafts are available under `/drafts` url. Only you know the title, so it is
 safe to put there your drafts and refresh browser to see how it looks.
 
 ## Static pages

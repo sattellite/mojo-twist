@@ -17,5 +17,15 @@
     "listen": ["http://127.0.0.1:5000"],
     "workers": 2,
     "clients": 100
-  }
+  },
+  "disqus" : {
+    "shortname" : "disqus.shortname",
+    "developer" : 0
+  },
+
+  "urchin" : "google.analytics.key",
+  "urchin_name" : "google.analytics.name",
+
+  "ya_metrika" : "yandex.metrika.key"
+
 }
