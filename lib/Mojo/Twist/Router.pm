@@ -114,6 +114,22 @@ sub pages {
   }
 }
 
+sub sitemap {
+  my $self = shift;
+  my $config    = $self->config;
+  my $timestamp = $self->param('timestamp');
+
+  my $articles = Mojo::Twist::Articles->new(
+    path         => $config->{articles_root},
+    article_args => {default_author => $config->{author}}
+  )->find_all();
+
+  $self->render('sitemap', format => 'xml',
+      pub_date => @$articles
+      ? $articles->[0]->created->to_rss
+      : Mojo::Twist::Date->new(epoch => time)->to_rss,
+      articles => $articles);
+}
 
 sub tags_all {
   my $self = shift;

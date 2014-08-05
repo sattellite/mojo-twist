@@ -27,6 +27,12 @@ sub new {
     return $self;
 }
 
+sub day {
+    my $self = shift;
+
+    return Time::Piece->gmtime($self->epoch)->mday;
+}
+
 sub epoch { @_ > 1 ? $_[0]->{epoch} = $_[0] : $_[0]->{epoch} }
 
 sub is_date {
