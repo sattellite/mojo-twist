@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  % foreach my $article (@$articles) {
+  <url>
+    <loc><%= url_for('/')->to_abs %>articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %></loc>
+    <lastmod><%= $article->modified->year %>-<%= sprintf("%02d", $article->modified->month) %>-<%= sprintf("%02d", $article->modified->day) %></lastmod>
+    <changefreq>monthly</changefreq>
+  </url>
+  % }
+</urlset>

@@ -1,6 +1,6 @@
 package Mojo::Twist;
 use Mojo::Base 'Mojolicious';
-our $VERSION = '0.1.6';
+our $VERSION = '0.1.7';
 
 # This method will run once at server start
 sub startup {
@@ -25,6 +25,7 @@ sub startup {
 
   $r->get('/')->to('router#all');
   $r->get('/rss.rss')->to('router#index_rss');
+  $r->get('/sitemap.xml')->to('router#sitemap');
   $r->get('/articles/:year/:month/:slug')->to('router#article');
   $r->get('/drafts/:slug')->to('router#drafts');
   $r->get('/pages/:slug')->to('router#pages');

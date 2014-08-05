@@ -291,6 +291,14 @@ ul, ol {
 li {
   line-height: 25px;
 }
+blockquote {
+  padding: 5px 15px;
+  margin: 0 15px;
+  background: #E2D8FF;
+  font-style: italic;
+  border-left: 5px solid #8768ED;
+  border-radius: 4px;
+}
 
 .popup {
   position: fixed;
