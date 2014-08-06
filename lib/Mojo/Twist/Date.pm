@@ -30,7 +30,7 @@ sub new {
 sub day {
     my $self = shift;
 
-    return Time::Piece->gmtime($self->epoch)->mday;
+    return sprintf("%02d", Time::Piece->gmtime($self->epoch)->mday);
 }
 
 sub epoch { @_ > 1 ? $_[0]->{epoch} = $_[0] : $_[0]->{epoch} }
@@ -45,7 +45,7 @@ sub is_date {
 sub month {
     my $self = shift;
 
-    return Time::Piece->gmtime($self->epoch)->mon;
+    return sprintf("%02d", Time::Piece->gmtime($self->epoch)->mon);
 }
 
 sub strftime {
