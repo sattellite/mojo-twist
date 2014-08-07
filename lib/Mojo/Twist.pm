@@ -7,12 +7,12 @@ sub startup {
   my $self = shift;
 
   # Config
-  my $config = $self->_config;
+  my $config = $self->plugin('JSONConfig');
   $config->{articles_root} = $self->home->rel_dir('articles');
   $config->{drafts_root}   = $self->home->rel_dir('articles/drafts');
   $config->{pages_root}    = $self->home->rel_dir('pages');
 
-  $self->_set_secrets;
+  $self->secrets($config->{secrets});
 
   # Hook
   $self->hook(before_render => sub {
@@ -35,14 +35,4 @@ sub startup {
   $r->get('/tags/:tag')->to('router#tags_tag');
 }
 
-sub _config {
-  my $self = shift;
-  my $config = $ENV{MOJO_CONFIG} ? $self->plugin('JSONConfig') : $self->config;
-  return $config;
-}
-
-sub _set_secrets {
-  my $self = shift;
-  return $self->app->{secrets} ? $self->app->{secrets} : [time];
-}
 1;
