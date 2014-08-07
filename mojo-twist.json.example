@@ -22,6 +22,10 @@
     "shortname" : "disqus.shortname",
     "developer" : 0
   },
+  "auth": {
+    "user": "username",
+    "pass": "password"
+  },
 
   "urchin" : "google.analytics.key",
   "urchin_name" : "google.analytics.name",

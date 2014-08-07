@@ -1,6 +1,7 @@
 % my $title = stash 'title';
 % $title = $config->{title} unless $title;
 <!doctype html>
+<html>
   <head>
     <meta charset="utf-8">
     <title><%= $title %></title>

@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="<%= $config->{generator} %>" />
+    <link rel='stylesheet' href='/css/styles.css' type='text/css' />
+  </head>
+  <body>
+
+    % if ( my $message = flash 'message' ) {
+      <div class="alert"><%= $message %></div>
+    % }
+    %= form_for '/login' => ( method => 'post', class => 'form-login' ) => begin
+      <% my $value = flash 'username'; %>
+      %= text_field 'name' => $value, class => 'form-control', placeholder => 'Username'
+      <br>
+      %= password_field 'pass', class => 'form-control', placeholder => 'Password'
+      <br>
+      %= submit_button 'Login', class => 'btn-login'
+    % end
+  </body>
+</html>

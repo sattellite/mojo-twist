@@ -13,6 +13,26 @@ sub startup {
   $config->{pages_root}    = $self->home->rel_dir('pages');
 
   $self->secrets($config->{secrets});
+  $self->sessions->default_expiration(86400); # One day
+
+  # Auth plugin configuration
+  $self->plugin('Authentication' => {
+    'autoload_user' => 1,
+    'load_user' => sub {
+      my ($c, $uid) = (shift, shift);
+      return {} if ($uid eq 'editor');
+      return undef;
+    },
+    'validate_user' => sub {
+      my $c    = shift;
+      my $user = shift || '';
+      my $pass = shift || '';
+      return 'editor' if ($user eq $config->{auth}->{user} &&
+                          $pass eq $config->{auth}->{pass});
+      return undef;
+    },
+  });
+
 
   # Hook
   $self->hook(before_render => sub {
@@ -33,6 +53,13 @@ sub startup {
   $r->get('/tags')->to('router#tags_all');
   $r->get('/tags/(:tag).rss')->to('router#tags_tag_rss');
   $r->get('/tags/:tag')->to('router#tags_tag');
+
+  # Auth routes
+  $r->post('/login')->to('user#login');
+  $r->get('/login')->to('user#show');
+  $r->get('/logout')->to('user#delete');
+  # Only for authenticated users
+  my $auth = $r->under('/')->to('user#auth');
 }
 
 1;
