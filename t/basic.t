@@ -13,18 +13,66 @@ $t->ua->max_redirects(2);
 $t->app->config->{articles_root} = $home->rel_dir('basic');
 $t->app->config->{drafts_root}   = $home->rel_dir('basic/draft');
 
-$t->get_ok('/')->status_is(200)->text_is('html head title' => $t->app->config->{title})->content_like(qr/Yet another Perl hacker/)->content_type_like(qr/text\/html/);
-$t->get_ok('/notfound')->status_is(404)->text_is('html head title' => 'Error 404')->content_like(qr/Sorry, the page you're looking for is not found :\(/)->content_type_like(qr/text\/html/);
-$t->get_ok('/articles/2014/2/First-article')->status_is(200)->text_is('head title' => 'First article')->content_type_like(qr/text\/html/);;
-$t->get_ok('/drafts/First-article')->status_is(200)->text_is('head title' => 'First article')->content_type_like(qr/text\/html/);;
-$t->get_ok('/pages/about')->status_is(200)->text_is('head title' => 'About')->content_type_like(qr/text\/html/);
-$t->get_ok('/archive')->status_is(200)->text_is('article h1' => 'Archive')->content_type_like(qr/text\/html/);
-$t->get_ok('/tags')->status_is(200)->text_is('article h1' => 'Tags')->content_type_like(qr/text\/html/);
-$t->get_ok('/tags/article')->status_is(200)->text_is('article h1' => 'Tag article')->content_type_like(qr/text\/html/);
-$t->get_ok('/tags/article.rss')->status_is(200)->content_type_is('application/xml');
-$t->get_ok('/rss.rss')->status_is(200)->content_type_isnt('text/html');
-$t->get_ok('/tag/notfound')->status_is(404)->content_type_like(qr/text\/html/);
-$t->get_ok('/tag/notfound.rss')->status_is(404)->content_type_isnt('text/html');
+subtest 'Main functionality' => sub {
+  $t->get_ok('/')
+    ->status_is(200)
+    ->text_is('html head title' => $t->app->config->{title})
+    ->content_like(qr/Yet another Perl hacker/)
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/notfound')
+    ->status_is(404)->text_is('html head title' => 'Error 404')
+    ->content_like(qr/Sorry, the page you're looking for is not found :\(/)
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/articles/2014/2/First-article')
+    ->status_is(200)
+    ->text_is('head title' => 'First article')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/drafts/First-article')
+    ->status_is(200)
+    ->text_is('head title' => 'First article')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/pages/about')
+    ->status_is(200)
+    ->text_is('head title' => 'About')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/archive')
+    ->status_is(200)
+    ->text_is('article h1' => 'Archive')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/tags')->status_is(200)
+    ->text_is('article h1' => 'Tags')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/tags/article')
+    ->status_is(200)
+    ->text_is('article h1' => 'Tag article')
+    ->content_type_like(qr/text\/html/);
+
+  $t->get_ok('/tag/notfound')
+    ->status_is(404)
+    ->content_type_like(qr/text\/html/);
+};
+
+subtest 'RSS' => sub {
+  $t->get_ok('/tags/article.rss')
+    ->status_is(200)
+    ->content_type_is('application/xml');
+
+  $t->get_ok('/rss.rss')
+    ->status_is(200)
+    ->content_type_isnt('text/html');
+
+
+  $t->get_ok('/tag/notfound.rss')
+    ->status_is(404)
+    ->content_type_isnt('text/html');
+};
 
 subtest 'Anonymous User' => sub {
   $t->get_ok('/login')
