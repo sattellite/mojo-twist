@@ -60,6 +60,7 @@ sub startup {
   $r->get('/logout')->to('user#delete');
   # Only for authenticated users
   my $auth = $r->under('/')->to('user#auth');
+  $auth->get('/edit')->to('editor#view');
 }
 
 1;

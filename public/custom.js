@@ -59,4 +59,13 @@ $(function() {
   });
   /* END Event for click on button */
 
+  /* Fixing articles-list height */
+  if (window.location.pathname == '/edit') {
+    var selector = '.articles-list ul';
+    if ($(selector).length) {
+      $(selector).css('max-height',$(window).height());
+      $(window).resize(function(){$(selector).css('max-height',$(window).height());});
+    }
+  }
+  /* END fixing articles-list height */
 });

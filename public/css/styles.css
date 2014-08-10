@@ -519,3 +519,51 @@ input[type="submit"] {
   font-size: 16px;
   text-align: center;
 }
+
+/* Editor */
+.editor-container {
+  width: 100%;
+}
+
+.articles-list {
+  width: 12.5%;
+  font-size: 16px;
+}
+
+.articles-list ul {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  list-style-type: none;
+
+  height: auto;
+  max-height: 150%;
+  overflow: overlay;
+}
+.articles-list ul li {
+  border-bottom: 1px solid #FFFFFF;
+}
+
+.articles-list li.year {
+  text-align: center;
+  background-color: #E2D8FF;
+}
+
+.articles-list ul li a {
+  display:block;
+  text-decoration: none;
+  padding: 10px 15px;
+  color: #FFFFFF;
+  background-color: #8768ED;
+  line-height: 20px;
+  -webkit-transition: background-color 0.3s linear;
+  transition: background-color 0.3s linear;
+}
+
+.articles-list ul li a:visited {
+  color: #FFFFFF;
+}
+
+.articles-list ul li a:hover {
+  background-color: #5A3EB6;
+}
