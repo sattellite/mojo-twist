@@ -41,16 +41,18 @@ $(function() {
   /* END Set class "active" in navigation menu for active page */
 
   /* Button to top */
-  var popup = $('<div class="popup hiding">»</div>');
-  $('body').append(popup);
+  if (window.location.pathname != '/edit') {
+    var popup = $('<div class="popup hiding">»</div>');
+    $('body').append(popup);
 
-  $('.container').waypoint(function(direction) {
-    $('.popup').toggleClass('hiding', direction === "up");
-  }, {
-    offset: function() {
-      return -$.waypoints('viewportHeight')/2;
-    }
-  });
+    $('.container').waypoint(function(direction) {
+      $('.popup').toggleClass('hiding', direction === "up");
+    }, {
+      offset: function() {
+        return -$.waypoints('viewportHeight')/2;
+      }
+    });
+  }
   /* END Button to top */
 
   /* Event for click on button */
@@ -63,8 +65,8 @@ $(function() {
   if (window.location.pathname == '/edit') {
     var selector = '.articles-list ul';
     if ($(selector).length) {
-      $(selector).css('max-height',$(window).height());
-      $(window).resize(function(){$(selector).css('max-height',$(window).height());});
+      $(selector).css('max-height', $(window).height() - $('footer').height() );
+      $(window).resize(function(){$(selector).css('max-height', $(window).height() - $('footer').height() );});
     }
   }
   /* END fixing articles-list height */

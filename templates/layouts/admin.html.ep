@@ -11,6 +11,16 @@
     <meta name="generator" content="<%= $config->{generator} %>" />
   </head>
   <body>
+    <div class="pixImg editor">
+      <div style="background-image: url('/bg.png')"></div>
+    </div>
+    <header class="editor">
+      <div>
+        <h1>
+          <a href="/edit">Administrative interface</a>
+        </h1>
+      </div>
+    </header>
     <div class='editor-container'>
       %= content
     </div>

@@ -521,8 +521,36 @@ input[type="submit"] {
 }
 
 /* Editor */
+/*div.header.editor {
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+*/
+header.editor {
+  top: -80px;
+}
+header.editor > div {
+  max-width: 920px;
+  margin: 0 auto;
+  height: 50px;
+  text-align: center;
+}
+
+header.editor > div > h1 {
+  line-height: 50px;
+}
+
+.pixImg.editor,
+.pixImg.editor > div {
+  height: 50px;
+}
+
 .editor-container {
   width: 100%;
+  background-color: #FFFFFF;
 }
 
 .articles-list {
