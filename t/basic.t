@@ -103,7 +103,7 @@ subtest 'Do Login' => sub {
   $tt->app->config->{drafts_root}   = $home->rel_dir('basic/draft');
   $tt->ua->on(start => sub {
   my ($ua, $tx) = @_;
-    $tx->req->headers->referrer('http://127.0.0.1:'.$ua->server->{nb_port}.'/articles/2014/2/First-article');
+    $tx->req->headers->referrer('/articles/2014/2/First-article');
   });
   $tt->post_ok( '/login' => form => {username => $t->app->config->{auth}->{user}, password => $t->app->config->{auth}->{pass}} )
     ->status_is(200)
