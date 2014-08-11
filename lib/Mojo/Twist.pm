@@ -61,6 +61,8 @@ sub startup {
   # Only for authenticated users
   my $auth = $r->under('/')->to('user#auth');
   $auth->get('/edit')->to('editor#view');
+  $auth->get('/edit/articles')->to('editor#articles');
+  $auth->get('/edit/drafts')->to('editor#drafts');
 }
 
 1;

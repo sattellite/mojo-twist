@@ -30,18 +30,30 @@ $(function() {
   var url = window.location.pathname;
   var activePage = stripTrailingSlash(url);
 
-  $('header nav li a').each(function(){
-    if ($(this).attr('href')) {
-      var currentPage = stripTrailingSlash($(this).attr('href'));
-    }
-    if (activePage == currentPage) {
-      $(this).addClass('active');
-    }
-  });
+  if (window.location.pathname.match('^/edit')) {
+    $('.navbar .nav li a').each(function(){
+      if ($(this).attr('href')) {
+        var currentPage = stripTrailingSlash($(this).attr('href'));
+      }
+      if (activePage == currentPage) {
+        $(this).addClass('active');
+      }
+    });
+  }
+  else {
+    $('header nav li a').each(function(){
+      if ($(this).attr('href')) {
+        var currentPage = stripTrailingSlash($(this).attr('href'));
+      }
+      if (activePage == currentPage) {
+        $(this).addClass('active');
+      }
+    });
+  }
   /* END Set class "active" in navigation menu for active page */
 
   /* Button to top */
-  if (window.location.pathname != '/edit') {
+  if (!window.location.pathname.match('^/edit')) {
     var popup = $('<div class="popup hiding">»</div>');
     $('body').append(popup);
 

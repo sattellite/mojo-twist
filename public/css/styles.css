@@ -1,5 +1,40 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,300,600&subset=latin,cyrillic);
 
+@font-face {
+  font-family: 'mtwist';
+  src: url('../fonts/mtwist.eot');
+  src: url('../fonts/mtwist.eot#iefix') format('embedded-opentype'),
+       url('../fonts/mtwist.woff') format('woff'),
+       url('../fonts/mtwist.ttf') format('truetype'),
+       url('../fonts/mtwist.svg#mtwist') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "mtwist";
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  margin-left: .2em;
+  font-size: 120%;
+}
+
+.icon-draft:before { content: '\e800'; }
+.icon-remove:before { content: '\e802'; }
+.icon-publich:before { content: '\e804'; }
+.icon-hide:before { content: '\e805'; }
+.icon-article:before { content: '\e806'; }
+.icon-logout:before { content: '\e807'; }
+
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -535,17 +570,17 @@ header.editor {
 header.editor > div {
   max-width: 920px;
   margin: 0 auto;
-  height: 50px;
+  height: 59px;
   text-align: center;
 }
 
 header.editor > div > h1 {
-  line-height: 50px;
+  line-height: 59px;
 }
 
 .pixImg.editor,
 .pixImg.editor > div {
-  height: 50px;
+  height: 59px;
 }
 
 .editor-container {
@@ -555,7 +590,9 @@ header.editor > div > h1 {
 
 .articles-list {
   width: 12.5%;
+  min-width: 200px;
   font-size: 16px;
+  margin-left: 55px;
 }
 
 .articles-list ul {
@@ -595,3 +632,60 @@ header.editor > div > h1 {
 .articles-list ul li a:hover {
   background-color: #5A3EB6;
 }
+
+.navbar {
+  min-height: 100%;
+}
+
+.editor-menu {
+  z-index: 1500;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  height: 100%;
+  background: #5A3EB6;
+  background-size: 18px 230px;
+  width: 55px;
+  -webkit-box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+.navbar .editor-menu .nav {
+  height: auto;
+  background: #5A3EB6;
+  position: relative;
+  left: 0;
+  display: block;
+  float: left;
+  margin: 0;
+  width: 100%;
+  line-height: 55px;
+  list-style: none;
+}
+
+.editor-menu .nav > li {
+  float: none;
+}
+
+.editor-menu .nav > li:first-child {
+  margin-top: 59px;
+}
+
+.editor-menu .nav > li > a {
+  color: #FFFFFF;
+  text-decoration: none;
+  text-shadow: none;
+  padding: 16px 7px;
+  font-size: 22.8px;
+  display: block;
+  float: none;
+  -webkit-transition: background-color 0.3s linear;
+  transition: background-color 0.3s linear;
+  -webkit-backface-visibility: hidden;
+}
+
+.editor-menu .nav > li > a.active,
+.editor-menu .nav > li > a:hover {
+  background-color: #8768ED;
+}
+

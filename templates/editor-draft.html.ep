@@ -6,7 +6,11 @@
         % foreach my $month ($year->{months}) {
           % foreach my $articles (@$month) {
             % foreach my $article (@{$articles->{articles}}) {
-              <li><a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $article->title %></a></li>
+              <li>
+                <a href="/draft/<%= $article->slug %>">
+                  <%= $article->title || 'No title' %>
+                </a>
+              </li>
             % }
           % }
         % }
