@@ -24,6 +24,23 @@ sub drafts {
   $self->render('editor-draft', title => 'Admin interface', years => $years);
 }
 
+sub preview {
+  my $self = shift;
+  my $config = $self->config;
+  my $year   = $self->param('year');
+  my $month  = $self->param('month');
+  my $slug   = $self->param('slug');
+
+  my $path = $self->stash('draft') ? $config->{drafts_root} : $config->{articles_root};
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $path,
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $slug);
+
+  $self->render('editor-preview', title => $article->title, article => $article);
+}
+
 sub view {
   shift->redirect_to('/edit/articles');
 }

@@ -3,17 +3,20 @@
   <ul>
     % foreach my $year (@$years) {
       <li class='year'><%= $year->{year} %></li>
-        % foreach my $month ($year->{months}) {
-          % foreach my $articles (@$month) {
-            % foreach my $article (@{$articles->{articles}}) {
-              <li>
-                <a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>">
-                  <%= $article->title || 'No title' %>
-                </a>
-              </li>
-            % }
+      % foreach my $month ($year->{months}) {
+        % foreach my $articles (@$month) {
+          % foreach my $article (@{$articles->{articles}}) {
+            <li>
+              <a href="#" title="<%= $article->title %>" data-src="/edit/preview/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>" >
+                <%= $article->title || 'No title' %>
+              </a>
+            </li>
           % }
         % }
+      % }
     % }
   </ul>
+</div>
+<div class="editor-frame">
+  <iframe class="frame" src="about:blank"></iframe>
 </div>

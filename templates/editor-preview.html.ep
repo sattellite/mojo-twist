@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title><%= $title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+    <div class='container'>
+      <article>
+        <h1 class="title"><a href="/articles/<%= $article->created->year %>/<%= $article->created->month %>/<%= $article->slug %>"><%= $title %></a></h1>
+        %= include 'article-meta', article => $article
+        <div class="article-content">
+        % if ($article->preview ne '' and $article->preview ne $article->content) {
+          %== $article->preview;
+          <a id="cut"></a>
+        % }
+        %== $article->content;
+        </div>
+      </article>
+      </div>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.4/waypoints.min.js"></script>
+      <script type="text/javascript" src="/custom.js"></script>
+      <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js"></script>
+  </body>
+</html>

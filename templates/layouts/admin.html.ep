@@ -24,9 +24,9 @@
     <div class="navbar">
       <div class="editor-menu">
         <ul class="nav">
-          <li><a href="/edit/articles"><em class="icon-article"></em></a></li>
-          <li><a href="/edit/drafts"><em class="icon-draft"></em></a></li>
-          <li><a href="/logout"><em class="icon-logout"></em></a></li>
+          <li><a href="/edit/articles" title="Articles"><em class="icon-article"></em></a></li>
+          <li><a href="/edit/drafts" title="Drafts"><em class="icon-draft"></em></a></li>
+          <li><a href="/logout" title="Logout"><em class="icon-logout"></em></a></li>
         </ul>
       </div>
     </div>

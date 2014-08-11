@@ -63,6 +63,8 @@ sub startup {
   $auth->get('/edit')->to('editor#view');
   $auth->get('/edit/articles')->to('editor#articles');
   $auth->get('/edit/drafts')->to('editor#drafts');
+  $auth->get('/edit/preview/:year/:month/:slug')->to('editor#preview');
+  $auth->get('/edit/preview/draft/:year/:month/:slug')->to('editor#preview', draft => 1);
 }
 
 1;

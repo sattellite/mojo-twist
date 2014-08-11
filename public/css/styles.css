@@ -238,6 +238,7 @@ footer {
   padding: 20px 0px;
   border-top: 1px rgba(51,51,51,0.35) solid;
   background-color: #FFFFFF;
+  clear: both;
 }
 pre {
   display: block;
@@ -593,6 +594,7 @@ header.editor > div > h1 {
   min-width: 200px;
   font-size: 16px;
   margin-left: 55px;
+  float: left;
 }
 
 .articles-list ul {
@@ -689,3 +691,13 @@ header.editor > div > h1 {
   background-color: #8768ED;
 }
 
+.editor-frame {
+  float: left;
+  /*background-color: #f00;*/
+}
+
+.editor-frame > iframe.frame {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
