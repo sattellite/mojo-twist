@@ -8,6 +8,6 @@ env:
   - "HARNESS_VERBOSE=1"
 script: prove -vl
 install:
-  - "cpanm -n Text::Markdown Mojolicious Mojo::Base Test::Spec Mojolicious::Plugin::Authentication"
+  - "cpanm -n Text::Markdown Mojolicious Mojo::Base Test::Spec Mojolicious::Plugin::Authentication File::Copy"
 notifications:
   email: false

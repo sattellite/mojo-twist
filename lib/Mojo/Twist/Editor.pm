@@ -1,6 +1,8 @@
 package Mojo::Twist::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Twist::Articles;
+use File::Copy qw(move);
+use Data::Dumper;
 
 sub articles {
   my $self  = shift;
@@ -24,6 +26,25 @@ sub drafts {
   $self->render('editor-draft', title => 'Admin interface', years => $years);
 }
 
+sub hide {
+  my $self = shift;
+  my $config = $self->config;
+  my $year   = $self->param('year');
+  my $month  = $self->param('month');
+  my $slug   = $self->param('slug');
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $config->{articles_root},
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $slug);
+
+  (my $file_name = $article->{file}->{path}) =~ s/^.*(\/.*\.md$)/$1/;
+  move $config->{articles_root}.$file_name, $config->{drafts_root}.$file_name;
+  unlink $config->{articles_root}.'/.cache';
+  unlink $config->{drafts_root}.'/.cache';
+  $self->render(json => {status => 'OK'})
+}
+
 sub preview {
   my $self = shift;
   my $config = $self->config;
@@ -31,14 +52,38 @@ sub preview {
   my $month  = $self->param('month');
   my $slug   = $self->param('slug');
 
-  my $path = $self->stash('draft') ? $config->{drafts_root} : $config->{articles_root};
+  my $path = $config->{articles_root};
+  my $draft = 0;
+  if ( $self->stash('draft') ) {
+    $path = $config->{drafts_root};
+    $draft = 1;
+  }
 
   my $article = Mojo::Twist::Articles->new(
     path         => $path,
     article_args => {default_author => $config->{author}}
   )->find(slug => $slug);
 
-  $self->render('editor-preview', title => $article->title, article => $article);
+  $self->render('editor-preview', title => $article->title, article => $article, draft => $draft);
+}
+
+sub publish {
+  my $self = shift;
+  my $config = $self->config;
+  my $year   = $self->param('year');
+  my $month  = $self->param('month');
+  my $slug   = $self->param('slug');
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $config->{drafts_root},
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $slug);
+
+  (my $file_name = $article->{file}->{path}) =~ s/^.*(\/.*\.md$)/$1/;
+  move $config->{drafts_root}.$file_name, $config->{articles_root}.$file_name;
+  unlink $config->{articles_root}.'/.cache';
+  unlink $config->{drafts_root}.'/.cache';
+  $self->render(json => {status => 'OK'})
 }
 
 sub view {
