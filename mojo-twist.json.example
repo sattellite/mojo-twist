@@ -4,6 +4,8 @@
   "title" : "Hacking",
   "description": "Always Hacking",
   "page_limit": 10,
+  "cuttag": "[cut]",
+  "preview_link": "Keep reading",
   "menu": [
     {"title": "index", "link": "/"},
     {"title": "tags", "link": "/tags"},
