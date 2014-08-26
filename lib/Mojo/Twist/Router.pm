@@ -14,7 +14,10 @@ sub all {
 
   my $articles = Mojo::Twist::Articles->new(
     path         => $config->{articles_root},
-    article_args => {default_author => $config->{author}}
+    article_args => {default_author => $config->{author},
+                     cuttag         => $config->{cuttag},
+                     preview_link   => $config->{preview_link}
+                    }
   )->find_all(
     offset => $timestamp,
     limit  => $config->{page_limit}
