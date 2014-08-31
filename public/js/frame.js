@@ -55,4 +55,21 @@ $(function() {
   });
   /* END Hide button */
 
+  /* Remove button */
+  var remove = $('button.remove');
+  remove.bind('click', function(e){
+    $.post(remove.attr('data-url'), function(){})
+      .done(function(){
+        frame.setAttribute("src", "about:blank");
+        var m = remove.attr('data-find');
+        parent.$('.articles-list a').each(function(){
+          if ( $(this).attr('data-src') == m ) {
+            $(this).parent().remove();
+            return false; // Stop loop if matched
+          }
+        });
+      });
+  });
+  /* END Remove button */
+
 });

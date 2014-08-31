@@ -10,13 +10,16 @@
       <div class="control">
         <div class="white">
           <%# <button class="btn edit"><em class="icon-edit"></em>Edit</button>
-          <button class="btn save"><em class="icon-save"></em>Save</button>
-          <button class="btn remove"><em class="icon-remove"></em>Remove</button> %>
+          <button class="btn save"><em class="icon-save"></em>Save</button> %>
           % my $uri = $article->created->year . '/' .  $article->created->month . '/' . $article->slug;
           % if ($draft) {
           <button class="btn publish" data-url="/edit/publish/<%= $uri %>" data-find="/edit/preview/draft/<%= $uri %>">
             <em class="icon-publish"></em>
             Publish
+          </button>
+          <button class="btn remove" data-url="/edit/remove/<%= $uri %>" data-find="/edit/preview/draft/<%= $uri %>">
+            <em class="icon-remove"></em>
+            Remove
           </button>
           % } else {
           <button class="btn hide" data-url="/edit/hide/<%= $uri %>" data-find="/edit/preview/<%= $uri %>">
