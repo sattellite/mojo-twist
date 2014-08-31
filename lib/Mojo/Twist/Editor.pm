@@ -86,6 +86,24 @@ sub publish {
   $self->render(json => {status => 'OK'})
 }
 
+sub remove {
+  my $self = shift;
+  my $config = $self->config;
+  my $year   = $self->param('year');
+  my $month  = $self->param('month');
+  my $slug   = $self->param('slug');
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $config->{drafts_root},
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $slug);
+
+  (my $file_name = $article->{file}->{path}) =~ s/^.*(\/.*\.md$)/$1/;
+  unlink $config->{drafts_root}.$file_name;
+  unlink $config->{drafts_root}.'/.cache';
+  $self->render(json => {status => 'OK'})
+}
+
 sub view {
   shift->redirect_to('/edit/articles');
 }
