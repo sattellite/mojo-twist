@@ -29,6 +29,8 @@
     "pass": "password"
   },
 
+  "hostname": "http://server.tld",
+
   "urchin" : "google.analytics.key",
   "urchin_name" : "google.analytics.name",
 
