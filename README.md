@@ -9,26 +9,29 @@ This blog engine rewriten from [Twist](https://github.com/vti/twist).
 
 ## Features
 
-    * filesystem-based storage
-    * tags
-    * RSS (articles, tags)
-    * static pages
-    * drafts
-    * archive
-    * Unicode support
-    * POD and Markdown
+* filesystem-based storage
+* tags
+* RSS (articles, tags)
+* static pages
+* drafts
+* archive
+* POD and Markdown
+* [Google Analytics](https://www.google.com/analytics/web/) and [Yandex.Metrika](https://metrika.yandex.ru/)
+* [Disqus](https://disqus.com) comments
 
 ## Installation
 
     $ git clone http://github.com/sattellite/mojo-twist.git
     $ cd mojo-twist
     $ cp mojo-twist.json.example mojo-twist.json
+    $ cpan App::cpanminus && cpanm --installdeps .
     $ morbo script/mojo_twist
     Server available at http://*:3000.
 
 ## Configuration
 
 Copy `mojo-twist.json.example` to `mojo-twist.json` and change it to fit your needs.
+For configuration *nginx* web-server visit [wiki](https://github.com/sattellite/mojo-twist/wiki).
 
 ## Writing articles
 
@@ -42,8 +45,7 @@ Article consists of file information and content with meta data.
     or
     20140317T14:02:00-article.md
 
-Where timestamp tells us when the article was created. Modified time is retrieved automatically from `mtime`. Filename is the article's permalink url.
-Extention is article's format.
+Where timestamp tells us when the article was created. Modified time is retrieved automatically from `mtime`. Filename is the article's permalink url. Extention is article's format.
 
 ### Content
 
@@ -57,14 +59,13 @@ Extention is article's format.
     This is my first article. It is in `md` format. And I can use all kind of
     **tags**.
 
-Every article should have metadata. Metadata ends with an empty line. If there is a `[cut]` tag, article will be splitted into `preview` and `content`
-parts. `preview` is shown when:
+Every article should have metadata. Metadata ends with an empty line. If there is a `[cut]` tag, article will be splitted into `preview` and `content` parts. `preview` is shown when:
 - article list is requested,
 - rss.
 
 #### Images
 
-For images used [jQuery.LazyLoad](https://github.com/tuupola/jquery_lazyload/). Each preprocessor replace `<img src="..."` with `<img data-original="..."`.
+For images used [jQuery.LazyLoad](https://github.com/tuupola/jquery_lazyload/). Preprocessor replace each `<img src="..."` with `<img data-original="..."`.
 
 #### Responsive design
 
@@ -79,12 +80,12 @@ All needed scripts will be included in templates if theirs keys was setted.
 
 #### Disqus
 
-If you have `disqus` account then you can include disqus comments for each article by specifying your `disqus shortname`.
+If you have `disqus` account then you can include disqus comments for each article by specifying your  `disqus shortname`.
 
 ## Drafts
 
-Drafts are available under `/drafts` url. Only you know the title, so it is
-safe to put there your drafts and refresh browser to see how it looks.
+Drafts are available under `/drafts` url. Drafts in the `articles/drafts` directory. Only you know the title, so it is safe to put there your drafts and refresh browser to see how it looks.
+For example: file `articles/drafts/2014-08-31-Sample-draft.md` will be available under `drafts/Sample-draft` url.
 
 ## Static pages
 
