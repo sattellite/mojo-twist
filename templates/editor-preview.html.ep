@@ -9,10 +9,9 @@
     <div class='container'>
       <div class="control">
         <div class="white">
-          <%# <button class="btn edit"><em class="icon-edit"></em>Edit</button>
-          <button class="btn save"><em class="icon-save"></em>Save</button> %>
           % my $uri = $article->created->year . '/' .  $article->created->month . '/' . $article->slug;
           % if ($draft) {
+          <button class="btn edit"><em class="icon-edit"></em>Edit</button>
           <button class="btn publish" data-url="/edit/publish/<%= $uri %>" data-find="/edit/preview/draft/<%= $uri %>">
             <em class="icon-publish"></em>
             Publish
@@ -44,6 +43,6 @@
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.lazyload/1.9.1/jquery.lazyload.min.js"></script>
     <script type="text/javascript" src="/js/frame.js"></script>
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js"></script>
+    <%# // <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/run_prettify.js"></script> %>
   </body>
 </html>

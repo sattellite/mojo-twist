@@ -1,8 +1,38 @@
 $(function() {
 
-  /* Async load CSS */
-  $("head").append('<link rel="stylesheet" href="/css/styles.css" type="text/css">');
-  /* END Async load CSS */
+  /* Helper functions */
+  jQuery.cachedScript = function(url, options) {
+    options = $.extend( options || {}, {
+      dataType: "script",
+      cache: true,
+      url: url
+    });
+    return jQuery.ajax( options );
+  };
+
+  jQuery.getStyle = function(url) {
+    var cssLink = $("<link rel='stylesheet' type='text/css' href='"+url+"'>");
+    $("head").append(cssLink);
+  };
+
+  var edit = $('button.edit'),
+      scripts = [
+        '/js/markdown.js',
+        '/js/to-markdown.js',
+        '/js/editor-markdown.js',
+        '/js/jquery.hotkeys.js'
+      ],
+      styles = [
+        '/css/styles.css',
+        '/css/editor-markdown.css'
+      ];
+  // Add scripts and styles
+  $.each(scripts, function(i, val){
+    $.cachedScript(val);
+  });
+  $.each(styles, function(i, val){
+    $.getStyle(val);
+  });
 
   /* Init Lazyload */
   $(".container img").lazyload({
@@ -10,13 +40,6 @@ $(function() {
     effect: "fadeIn"
   });
   /* END Init Lazyload */
-
-  /* Append class for prettyprint */
-  var editors = [];
-  $('.article-content > pre').each(function() {
-      $(this).addClass("prettyprint");
-  });
-  /* END Append class for prettyprint */
 
   var parent = window.parent,
       frame  = parent.document.getElementById('frame');
@@ -72,4 +95,45 @@ $(function() {
   });
   /* END Remove button */
 
+  /* Edit button */
+  var edit = $('button.edit');//,
+  edit.bind('click', function(e){
+
+    // Replace <a id="cut"> with <hr>
+    $('a#cut').replaceWith('<hr>');
+
+    // Fix <pre><code>...</code></pre> for `to-markdown`
+    $('pre').replaceWith(function(i, val){
+      return val;
+    });
+
+    // Call editor
+    $(".article-content").markdown();
+
+    $.each(['edit', 'publish', 'remove'], function(){ $('.btn.'+this).hide() });
+    $('div.white').append('<button class="btn cancel"><em class="icon-cancel"></em>Cancel</button>');
+
+    var node1 = $('h1.title>a'),
+        node2 = $('.article-meta'),
+        title = node1.text().replace(/\r?\n.*/,''),
+        day   = node2.clone().children().remove().end().text().replace(/.*\,\s(\d+).*/, '$1').replace(/\n|\s/g,''),
+        date  = node1.attr('href').split('/').slice(2,4),
+        tags  = node2.children().text().replace(/\s|\n/g, '').split(/,/);
+
+    date.push(day);
+    node1.parent().replaceWith(function(){
+      return $('<input/>', { name: 'title', value: title, class: 'form-control', placeholder: 'Title'})
+    });
+
+    node2.replaceWith(function(){
+      return [$('<input/>', { name: 'date', value: date.join('-'), class: 'form-control', placeholder: 'Date' }),
+             $('<input/>', { name: 'tags', value: tags.join(', '), class: 'form-control', placeholder: 'Tags' })]
+    });
+
+    $('button.cancel').bind('click', function(){ window.location.reload() });
+    $('button.save').bind('click', function(){
+      console.log($('textarea.md-input').val());
+    });
+  });
+  /* END Edit button */
 });
