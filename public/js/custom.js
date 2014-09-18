@@ -100,7 +100,6 @@ $(function() {
     });
     $('.articles-list a').each(function(){
       $(this).click(function(e) {
-        e.preventDefault();
         $('iframe.frame').attr("src", $(this).attr("data-src"));
       });
     });
