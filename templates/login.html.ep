@@ -15,7 +15,7 @@
     % }
     %= form_for '/login' => ( method => 'post', class => 'form-login' ) => begin
       <% my $value = flash 'username'; %>
-      %= text_field 'name' => $value, class => 'form-control', placeholder => 'Username'
+      %= text_field 'name' => $value, class => 'form-control', placeholder => 'Username', autofocus => 'autofocus'
       <br>
       %= password_field 'pass', class => 'form-control', placeholder => 'Password'
       <br>

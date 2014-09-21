@@ -28,14 +28,26 @@
   font-size: 120%;
 }
 
-.icon-draft:before { content: '\e800'; }
-.icon-edit:before { content: '\e801'; }
-.icon-remove:before { content: '\e802'; }
-.icon-save:before { content: '\e803'; }
-.icon-publish:before { content: '\e804'; }
-.icon-hide:before { content: '\e805'; }
-.icon-article:before { content: '\e806'; }
-.icon-logout:before { content: '\e807'; }
+.icon-search:before { content: '\e800'; }
+.icon-link:before { content: '\e801'; }
+.icon-publish:before { content: '\e802'; }
+.icon-hide:before { content: '\e803'; }
+.icon-cancel:before { content: '\e804'; }
+.icon-image:before { content: '\e805'; }
+.icon-quote:before { content: '\e806'; }
+.icon-unordered:before { content: '\e807'; }
+.icon-ordered:before { content: '\e808'; }
+.icon-code:before { content: '\e809'; }
+.icon-draft:before { content: '\e80a'; }
+.icon-article:before { content: '\e80b'; }
+.icon-edit:before { content: '\e80c'; }
+.icon-bold:before { content: '\e80d'; }
+.icon-italic:before { content: '\e80e'; }
+.icon-header:before { content: '\e80f'; }
+.icon-save:before { content: '\e810'; }
+.icon-cut:before { content: '\e811'; }
+.icon-logout:before { content: '\e812'; }
+.icon-remove:before { content: '\e813'; }
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -188,7 +200,8 @@ header nav ul li a:hover {
   max-width: 920px;
   margin: 0 auto;
 }
-.container article {
+.container article,
+.container .article {
   padding: 30px 0px;
   color: #333333;
 }
@@ -269,9 +282,9 @@ p img {
   vertical-align: middle;
   border: 0;
   -ms-interpolation-mode: bicubic;
-  -webkit-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-  -moz-box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
-  box-shadow: 0px 3px 10px 0px rgba(50, 50, 50, 0.75);
+  -webkit-box-shadow: 0 10px 20px -5px rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.1);
+  -moz-box-shadow: 0 10px 20px -5px rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.1);
+  box-shadow: 0 10px 20px -5px rgba(0,0,0,.4),0 0 0 1px rgba(0,0,0,.1);
   display: block;
   margin: 0 auto;
 }
@@ -451,6 +464,10 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
   line-height: 20px;
 }
 
+div.line {
+  max-width: 9999px;
+}
+
 /* Login page */
 .form-login {
   max-width: 330px;
@@ -545,6 +562,47 @@ input[type="submit"] {
 
 .btn-login:focus {
   outline-offset: -2px;
+}
+
+.btn-group {
+  float: left;
+  padding: 7px;
+}
+
+.btn-group span[class^="icon"] {
+  font-size: 12px;
+}
+
+.btn-group:not(:first-child) {
+  padding-left: 5px;
+}
+
+.btn-group>.btn {
+  background-color: #fff;
+  border-color: #adadad;
+  padding: 3px 6px;
+}
+
+.btn-group .btn+.btn {
+  margin-left: -1px;
+}
+
+.btn-group>.btn:first-child:not(:last-child) {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.btn-group>.btn:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.btn-group>.btn:last-child:not(:first-child) {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.btn-toolbar .btn {
+  outline: none;
 }
 
 .alert {
@@ -724,7 +782,8 @@ header.editor > div > h1 {
   border-radius: 4px;
 }
 
-.publish {
+.publish,
+.save {
   color: #FFF;
   background-color: #5CB85C;
   border-color: #4CAE4C;
@@ -732,13 +791,18 @@ header.editor > div > h1 {
 
 .publish:active,
 .publish:hover,
-.publish:focus {
+.publish:focus,
+.save:active,
+.save:hover,
+.save:focus {
   color: #FFF;
   background-color: #449D44;
   border-color: #398439;
 }
 
-.hide {
+.hide,
+.preview,
+.btn-group>.btn.preview {
   color: #FFF;
   background-color: #428BCA;
   border-color: #357EBD;
@@ -746,13 +810,21 @@ header.editor > div > h1 {
 
 .hide:active,
 .hide:hover,
-.hide:focus {
+.hide:focus,
+.preview:active,
+.preview:hover,
+.preview:focus,
+.btn-group>.btn.preview:active,
+.btn-group>.btn.preview:hover,
+.btn-group>.btn.preview:focus {
   color: #FFF;
   background-color: #3071A9;
   border-color: #285E8E;
 }
 
-.remove {
+.remove,
+.cancel
+ {
   color: #FFF;
   background-color: #D9534F;
   border-color: #D43F3A;
@@ -760,7 +832,10 @@ header.editor > div > h1 {
 
 .remove:active,
 .remove:hover,
-.remove:focus {
+.remove:focus,
+.cancel:active,
+.cancel:hover,
+.cancel:focus {
   color: #FFF;
   background-color: #C9302C;
   border-color: #AC2925;
@@ -780,20 +855,6 @@ header.editor > div > h1 {
   border-color: #D58512;
 }
 
-.save {
-  color: #333;
-  background-color: #FFF;
-  border-color: #CCC;
-}
-
-.save:active,
-.save:hover,
-.save:focus {
-  color: #333;
-  background-color: #E6E6E6;
-  border-color: #ADADAD;
-}
-
 .remove .icon-remove,
 .publish .icon-publish,
 .save .icon-save,
@@ -807,14 +868,79 @@ header.editor > div > h1 {
   position: fixed;
   background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAUCAIAAAA7jDsBAAAAkElEQVQokXXRsQ5AMBQF0OduiFkwkNh8iQ/xp36EAbEwCFYD2te+tkvT3vQk9zXo2r6uGvrXtAzbvqojruu471Odi6yKokTHRDSvI7GVp6URW0AYxgrAu/mAL/YBUFdOQMdOAPyFBMBbSgC8pQTAW0oAZI7JAkDmmCwAvKUEwFtKQPd2Ajp2AsbUJADfT7/AA+zxXq1iIfRkAAAAAElFTkSuQmCC);
   background-repeat: repeat;
-  padding: 10px;
+  padding: 6px;
   -webkit-border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   border-bottom-left-radius: 5px;
 }
 
 .white {
-  padding: 3px 3px 5px;
+  padding: 3px;
   background-color: #FFFFFF;
   border-radius: 5px;
+}
+
+article input.form-control {
+  border-radius: 0;
+  display: block;
+  width: 100%;
+  font-size: 16px;
+  padding: 5px;
+  border-bottom: none;
+}
+
+article input.form-control:focus {
+  border-bottom: 1px solid;
+}
+
+.md-editor {
+  display: block;
+  border: 1px solid #ddd;
+}
+
+.md-editor .md-footer {
+  display: block;
+  padding: 6px 4px;
+  background: #f5f5f5;
+}
+
+.md-editor>.md-header {
+  margin: 0;
+  height: 44px;
+}
+
+.md-editor>.md-preview {
+  background: #fff;
+  border-top: 1px dashed #ddd;
+  border-bottom: 1px dashed #ddd;
+  min-height: 10px;
+  overflow: auto;
+}
+
+.md-editor>textarea {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-size: 14px;
+  outline: 0;
+  outline: thin dotted  \9;
+  margin: 0;
+  display: block;
+  padding: 0;
+  width: 100%;
+  border: 0;
+  border-top: 1px dashed #ddd;
+  border-bottom: 1px dashed #ddd;
+  border-radius: 0;
+  box-shadow: none;
+  background: #eee;
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s,box-shadow ease-in-out 0.15s;
+}
+
+.md-editor>textarea:focus {
+  box-shadow: none;
+  background: #fff;
+  outline: 0;
+  border: 1px solid #333;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(0, 0, 0, 0.6);
 }
