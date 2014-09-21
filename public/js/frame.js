@@ -13,6 +13,7 @@ $(function() {
     this.$preview  = false;
     this.$nextTab  = [];
     this.$inputs   = [];
+    this.$loader   = [];
     this.$lazyload = function() { $('.container img').lazyload({ skip_invisible : false, effect: "fadeIn" }) };
 
     this.showEditor();
@@ -20,9 +21,39 @@ $(function() {
 
   Editor.prototype = {
 
-    _defer: function(ajax_act) {
+    _defer: function(ajax_act, elem) {
+      this.__preload(elem);
       var d = $.when(ajax_act);
       return d;
+    },
+
+    __preload: function(elem) {
+      var el      = $(elem),
+          body    = $('body'),
+          pos     = el.offset() ? el.offset() : {top: 0, left: 0},
+          el_h    = el.height(),
+          el_w    = el.width(),
+          loader  = $('<div/>', {class:'loader'}).append($('<img>', {src : '/loader.gif'})),
+          overlay = $('<div/>', {class:'overlay'}).css({ position:'fixed', top: pos.top, left: pos.left, background: '#5A3EB6', opacity: 0.3, 'z-index': 999, width: el_w, height: el_h });
+      loader.css({ position:'fixed', 'z-index': 1000, top: pos.top + ((el_h-28)/2), left: pos.left + ((el_w-28)/2) });
+
+      this.$loader.push(overlay, loader);
+
+      body.append(overlay);
+      body.append(loader);
+      $(elem).resize(function(){
+        var pos = el.offset() ? el.offset() : {top: 0, left: 0};
+        loader.css({ top: pos.top + ((el.height()-28)/2), left: pos.left + ((el.width()-28)/2) });
+        overlay.css({ width: el.width(), height: el.height() });
+      });
+    },
+
+    __clearPreload: function() {
+      for (var i in this.$loader) {
+        this.$loader[i].remove();
+        this.$loader[i].off('resize');
+      }
+      this.$loader = [];
     },
 
     __editorBtns: function() {
@@ -39,20 +70,22 @@ $(function() {
       btn_save.click(function(){ t._saveHandler() });
     },
 
-    __getMarkdown: function() {
+    __getMarkdown: function(elem) {
       var result = null,
-          url = window.location+'.json'
+          url    = window.location+'.json';
+
       var d = this._defer($.ajax({
         url: url,
         dataType: 'json',
-      }));
+      }), elem);
       return d;
     },
 
     showEditor: function() {
       var that = this;
-      this.__getMarkdown().done( function(data) {
+      this.__getMarkdown(window).done( function(data) {
 
+        that.__clearPreload();
         that.__editorBtns();
         var data    = data.article,
             slug    = data.slug,
@@ -235,8 +268,9 @@ $(function() {
             type: 'POST',
             url: '/edit/prerender',
             data: t.serialize()
-          })).done(function(data){
+          }), t).done(function(data){
             r=data;
+            that.__clearPreload();
             that.showPreview(r,e);
           });
         } else {
