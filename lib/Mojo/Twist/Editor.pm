@@ -1,7 +1,9 @@
 package Mojo::Twist::Editor;
 use Mojo::Base 'Mojolicious::Controller';
 use Mojo::Twist::Articles;
+use Mojo::Twist::Renderer;
 use File::Copy qw(move);
+use POSIX qw(strftime);
 use Data::Dumper;
 
 sub articles {
@@ -45,6 +47,11 @@ sub hide {
   $self->render(json => {status => 'OK'})
 }
 
+sub prerender {
+  my $self = shift;
+  $self->render(json => {html => Mojo::Twist::Renderer->render( 'md', $self->param('content') ) });
+}
+
 sub preview {
   my $self = shift;
   my $config = $self->config;
@@ -57,6 +64,7 @@ sub preview {
   if ( $self->stash('draft') ) {
     $path = $config->{drafts_root};
     $draft = 1;
+    unlink $path.'/.cache';
   }
 
   my $article = Mojo::Twist::Articles->new(
@@ -64,7 +72,28 @@ sub preview {
     article_args => {default_author => $config->{author}}
   )->find(slug => $slug);
 
-  $self->render('editor-preview', title => $article->title, article => $article, draft => $draft);
+  my( $content, $date, $tags, $title, $uri );
+  $title   = $article->title;
+  $tags    = $article->tags;
+  $uri     = $article->slug;
+  $date    = $article->created->epoch;
+  if ($article->_data->{preview} ne '' and $article->_data->{preview} ne $article->_data->{content}) {
+    $content = $article->_data->{preview};
+    $content .= "\n[cut]\n";
+    $content .= $article->_data->{content};
+  }
+  else {
+    $content = $article->_data->{content};
+  }
+
+  $self->respond_to(
+    json => sub {
+              $self->render(json => { article => { tags => $tags, title => $title, slug => $uri, content => $content, date => $date }});
+            },
+    html => sub {
+              $self->render('editor-preview', title => $article->title, article => $article, draft => $draft);
+            }
+  );
 }
 
 sub publish {
@@ -104,12 +133,40 @@ sub remove {
   $self->render(json => {status => 'OK'})
 }
 
+sub save {
+  my $self = shift;
+  my $config = $self->config;
+  my $date   = $self->param('date');
+  my $title  = $self->param('title');
+  my $oslug  = $self->param('oldslug');
+  my $slug   = $self->param('slug');
+  my $tags   = $self->param('tags');
+  my $data   = $self->param('content');
+
+  my $article = Mojo::Twist::Articles->new(
+    path         => $config->{drafts_root},
+    article_args => {default_author => $config->{author}}
+  )->find(slug => $oslug);
+
+  $date ||= strftime "%Y-%m-%d", localtime;
+  my $file;
+  if ($article) {
+     $file = $article->{file}->{path};
+  }
+  else {
+    $file = $config->{drafts_root} . "/$date-$slug.md";
+  }
+
+  $self->_write($file, $data, $title, $tags, $slug);
+
+  unlink $config->{drafts_root}.'/.cache';
+
+  $self->render(json => {status => 'OK'});
+}
+
 sub view {
   shift->redirect_to('/edit/articles');
 }
-
-1;
-
 
 sub _find_all {
   my $self = shift;
@@ -142,6 +199,22 @@ sub _find_all {
     map { {year => $_, months => $years->{$_}} }
     sort { $b <=> $a } keys %$years
   ];
+}
+
+sub _write {
+  my ($class, $file, $data, $title, $tags, $slug) = @_;
+  $data  ||= '';
+  $title ||= '';
+  $tags  ||= '';
+  $slug  ||= '';
+
+  open my $fh, '>', $file or die $!;
+  print $fh "Title: $title\n";
+  print $fh "Tags: $tags\n";
+  print $fh "Slug: $slug\n" if $slug;
+  print $fh "\n$data\n";
+  close $fh;
+  return;
 }
 
 1;

@@ -25,3 +25,4 @@ MYMETA.json
 articles/*
 mojo-twist.json
 script/*.pid
+.sync
