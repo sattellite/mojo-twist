@@ -5,7 +5,7 @@ $(function() {
   Number.prototype.leadZero = Number.prototype.leadZero ||
   function(base){
     var nr = this, len = (String(base).length - String(nr).length)+1;
-    return len > 0? new Array(len).join('0')+nr : nr;
+    return len > 0 ? new Array(len).join('0')+nr : nr;
   };
 
   var Editor = function() {
@@ -15,11 +15,15 @@ $(function() {
     this.$inputs   = [];
     this.$lazyload = function() { $('.container img').lazyload({ skip_invisible : false, effect: "fadeIn" }) };
 
-    this.__editorBtns();
     this.showEditor();
   };
 
   Editor.prototype = {
+
+    _defer: function(ajax_act) {
+      var d = $.when(ajax_act);
+      return d;
+    },
 
     __editorBtns: function() {
       var btn_cancel = $('<button/>', { class : 'btn cancel'}).text('Cancel').prepend($('<em/>', { class : 'icon-cancel' })),
@@ -38,73 +42,72 @@ $(function() {
     __getMarkdown: function() {
       var result = null,
           url = window.location+'.json'
-      $.ajax({
+      var d = this._defer($.ajax({
         url: url,
         dataType: 'json',
-        async: false
-      })
-      .done( function(data){
-        result = data.article;
-      });
-      return result;
+      }));
+      return d;
     },
 
     showEditor: function() {
-      var data    = this.__getMarkdown(),
-          slug    = data.slug,
-          tags    = data.tags,
-          title   = data.title,
-          content = data.content,
-          date    = new Date(data.date*1000),
-          datef   = date.getFullYear()+'-'+(date.getMonth()+1).leadZero(10)+'-'+(date.getDate()).leadZero(10),
-          that    = this;
+      var that = this;
+      this.__getMarkdown().done( function(data) {
 
-      var btn_preview = $('<button/>', { type: 'button', class: 'btn preview', title: 'Preview (Ctrl+P)', tabindex: -1, 'data-hotkey': 'Ctrl+P' }).append($('<span/>', { class: 'icon-search' }).text('Preview')),
-          btn_bold    = $('<button/>', { type: 'button', class: 'btn', title: 'Bold (Ctrl+B)',    tabindex: -1, 'data-hotkey': 'Ctrl+B' }).append($('<span/>', { class: 'icon-bold' })),
-          btn_italic  = $('<button/>', { type: 'button', class: 'btn', title: 'Italic (Ctrl+I)',  tabindex: -1, 'data-hotkey': 'Ctrl+I' }).append($('<span/>', { class: 'icon-italic' })),
-          btn_header  = $('<button/>', { type: 'button', class: 'btn', title: 'Heading (Ctrl+H)', tabindex: -1, 'data-hotkey': 'Ctrl+H' }).append($('<span/>', { class: 'icon-header' })),
-          btn_link    = $('<button/>', { type: 'button', class: 'btn', title: 'URL/Link (Ctrl+L)', tabindex: -1, 'data-hotkey': 'Ctrl+L' }).append($('<span/>', { class: 'icon-link' })),
-          btn_image   = $('<button/>', { type: 'button', class: 'btn', title: 'Image (Ctrl+G)', tabindex: -1, 'data-hotkey': 'Ctrl+G' }).append($('<span/>', { class: 'icon-image' })),
-          btn_ulist   = $('<button/>', { type: 'button', class: 'btn', title: 'Unordered List (Ctrl+U)', tabindex: -1, 'data-hotkey': 'Ctrl+U' }).append($('<span/>', { class: 'icon-unordered' })),
-          btn_olist   = $('<button/>', { type: 'button', class: 'btn', title: 'Ordered List (Ctrl+O)', tabindex: -1, 'data-hotkey': 'Ctrl+O' }).append($('<span/>', { class: 'icon-ordered' })),
-          btn_code    = $('<button/>', { type: 'button', class: 'btn', title: 'Code (Ctrl+K)', tabindex: -1, 'data-hotkey': 'Ctrl+K' }).append($('<span/>', { class: 'icon-code' })),
-          btn_quote   = $('<button/>', { type: 'button', class: 'btn', title: 'Quote (Ctrl+Q)', tabindex: -1, 'data-hotkey': 'Ctrl+Q' }).append($('<span/>', { class: 'icon-quote' })),
-          btn_cut     = $('<button/>', { type: 'button', class: 'btn', title: 'Cut (Ctrl+M)', tabindex: -1, 'data-hotkey': 'Ctrl+M' }).append($('<span/>', { class: 'icon-cut' })),
-          ta_rows     = parseInt(($(window).height() - 260)/(14*1.14), 10),
-          textarea    = $('<textarea/>', { class: 'md-input', rows: ta_rows, style: 'resize: none', name: 'content' }),
-          input_title = $('<input/>', { name: 'title', class: 'form-control', placeholder: 'Title', value: title }),
-          input_date  = $('<input/>', { name: 'date',  class: 'form-control', placeholder: 'Date' , value: datef  }),
-          input_slug  = $('<input/>', { name: 'slug',  class: 'form-control', placeholder: 'Slug' , value: slug  }),
-          input_oslug = $('<input/>', { name: 'oldslug',class: 'form-control', type: 'hidden' , value: slug  }),
-          input_tags  = $('<input/>', { name: 'tags',  class: 'form-control', placeholder: 'Tags' , value: tags  });
+        that.__editorBtns();
+        var data    = data.article,
+            slug    = data.slug,
+            tags    = data.tags,
+            title   = data.title,
+            content = data.content,
+            date    = new Date(data.date*1000),
+            datef   = date.getFullYear()+'-'+(date.getMonth()+1).leadZero(10)+'-'+(date.getDate()).leadZero(10);
 
-      this.$inputs.push( input_title, input_date, input_slug, input_oslug, input_tags, textarea );
+        var btn_preview = $('<button/>', { type: 'button', class: 'btn preview', title: 'Preview (Ctrl+P)', tabindex: -1, 'data-hotkey': 'Ctrl+P' }).append($('<span/>', { class: 'icon-search' }).text('Preview')),
+            btn_bold    = $('<button/>', { type: 'button', class: 'btn', title: 'Bold (Ctrl+B)',    tabindex: -1, 'data-hotkey': 'Ctrl+B' }).append($('<span/>', { class: 'icon-bold' })),
+            btn_italic  = $('<button/>', { type: 'button', class: 'btn', title: 'Italic (Ctrl+I)',  tabindex: -1, 'data-hotkey': 'Ctrl+I' }).append($('<span/>', { class: 'icon-italic' })),
+            btn_header  = $('<button/>', { type: 'button', class: 'btn', title: 'Heading (Ctrl+H)', tabindex: -1, 'data-hotkey': 'Ctrl+H' }).append($('<span/>', { class: 'icon-header' })),
+            btn_link    = $('<button/>', { type: 'button', class: 'btn', title: 'URL/Link (Ctrl+L)', tabindex: -1, 'data-hotkey': 'Ctrl+L' }).append($('<span/>', { class: 'icon-link' })),
+            btn_image   = $('<button/>', { type: 'button', class: 'btn', title: 'Image (Ctrl+G)', tabindex: -1, 'data-hotkey': 'Ctrl+G' }).append($('<span/>', { class: 'icon-image' })),
+            btn_ulist   = $('<button/>', { type: 'button', class: 'btn', title: 'Unordered List (Ctrl+U)', tabindex: -1, 'data-hotkey': 'Ctrl+U' }).append($('<span/>', { class: 'icon-unordered' })),
+            btn_olist   = $('<button/>', { type: 'button', class: 'btn', title: 'Ordered List (Ctrl+O)', tabindex: -1, 'data-hotkey': 'Ctrl+O' }).append($('<span/>', { class: 'icon-ordered' })),
+            btn_code    = $('<button/>', { type: 'button', class: 'btn', title: 'Code (Ctrl+K)', tabindex: -1, 'data-hotkey': 'Ctrl+K' }).append($('<span/>', { class: 'icon-code' })),
+            btn_quote   = $('<button/>', { type: 'button', class: 'btn', title: 'Quote (Ctrl+Q)', tabindex: -1, 'data-hotkey': 'Ctrl+Q' }).append($('<span/>', { class: 'icon-quote' })),
+            btn_cut     = $('<button/>', { type: 'button', class: 'btn', title: 'Cut (Ctrl+M)', tabindex: -1, 'data-hotkey': 'Ctrl+M' }).append($('<span/>', { class: 'icon-cut' })),
+            ta_rows     = parseInt(($(window).height() - 260)/(14*1.14), 10),
+            textarea    = $('<textarea/>', { class: 'md-input', rows: ta_rows, style: 'resize: none', name: 'content' }),
+            input_title = $('<input/>', { name: 'title', class: 'form-control', placeholder: 'Title', value: title }),
+            input_date  = $('<input/>', { name: 'date',  class: 'form-control', placeholder: 'Date' , value: datef  }),
+            input_slug  = $('<input/>', { name: 'slug',  class: 'form-control', placeholder: 'Slug' , value: slug  }),
+            input_oslug = $('<input/>', { name: 'oldslug',class: 'form-control', type: 'hidden' , value: slug  }),
+            input_tags  = $('<input/>', { name: 'tags',  class: 'form-control', placeholder: 'Tags' , value: tags  });
 
-      var editorArea = function (){
+        that.$inputs.push( input_title, input_date, input_slug, input_oslug, input_tags, textarea );
 
-        return $('<article/>').append([ input_title, input_date, input_slug, input_tags,
-          $('<div/>', { class: 'md-editor' }).append([
-            $('<div/>', { class: 'md-header btn-toolbar'}).append([
-              $('<div/>', { class: 'btn-group' }).append([ btn_bold, btn_italic, btn_header ]),
-              $('<div/>', { class: 'btn-group' }).append([ btn_link, btn_image ]),
-              $('<div/>', { class: 'btn-group' }).append([ btn_ulist, btn_olist, btn_code, btn_quote ]),
-              $('<div/>', { class: 'btn-group' }).append( btn_cut ),
-              $('<div/>', { class: 'btn-group' }).append( btn_preview )
-            ]),
-            textarea.val(content),
-            $('<div/>', { class: 'md-footer' })
+        var editorArea = function() {
+
+          return $('<article/>').append([ input_title, input_date, input_slug, input_tags,
+            $('<div/>', { class: 'md-editor' }).append([
+              $('<div/>', { class: 'md-header btn-toolbar'}).append([
+                $('<div/>', { class: 'btn-group' }).append([ btn_bold, btn_italic, btn_header ]),
+                $('<div/>', { class: 'btn-group' }).append([ btn_link, btn_image ]),
+                $('<div/>', { class: 'btn-group' }).append([ btn_ulist, btn_olist, btn_code, btn_quote ]),
+                $('<div/>', { class: 'btn-group' }).append( btn_cut ),
+                $('<div/>', { class: 'btn-group' }).append( btn_preview )
+              ]),
+              textarea.val(content),
+              $('<div/>', { class: 'md-footer' })
+            ])
           ])
-        ])
-      };
-      $('article').replaceWith(editorArea);
+        };
+        $('article').replaceWith(editorArea);
 
-      this.$textarea = textarea;
-      this.__buttonsListner({preview : btn_preview, image : btn_image, cut: btn_cut,
-                             bold    : btn_bold   , ulist : btn_ulist,
-                             italic  : btn_italic , olist : btn_olist,
-                             header  : btn_header , code  : btn_code,
-                             link    : btn_link   , quote : btn_quote});
-
+        that.$textarea = textarea;
+        that.__buttonsListner({preview : btn_preview, image : btn_image, cut: btn_cut,
+                               bold    : btn_bold   , ulist : btn_ulist,
+                               italic  : btn_italic , olist : btn_olist,
+                               header  : btn_header , code  : btn_code,
+                               link    : btn_link   , quote : btn_quote});
+      });
     },
 
     getSelection: function() {
@@ -225,17 +228,20 @@ $(function() {
     },
 
     _previewHandler: function(e) {
-      var t = this.$textarea, a = this, r = null;
+      var t = this.$textarea, that = this, r = null;
       e.preview.bind('click', function(){
-        !a.$preview && $.ajax({
-          type: 'POST',
-          url: '/edit/prerender',
-          data: t.serialize(),
-          async: false
-        }).done(function(data){
-          r=data;
-        });
-        a.showPreview(r,e);
+        if (!that.$preview) {
+          that._defer($.ajax({
+            type: 'POST',
+            url: '/edit/prerender',
+            data: t.serialize()
+          })).done(function(data){
+            r=data;
+            that.showPreview(r,e);
+          });
+        } else {
+          that.showPreview(r,e);
+        }
       });
     },
 
