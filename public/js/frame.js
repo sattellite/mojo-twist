@@ -16,6 +16,27 @@ $(function() {
     this.$loader   = [];
     this.$lazyload = function() { $('.container img').lazyload({ skip_invisible : false, effect: "fadeIn" }) };
 
+    var that = this;
+    $(document).ajaxError(function(){
+      that.__clearPreload();
+      var body = $('body'),
+          pos = body.offset(),
+          elem = $('<div/>', {class:'error'})
+                    .css({
+                      position:'fixed',
+                      top: (body.height()-50)/2,
+                      left: (body.width()-200)/2,
+                      background: '#5A3EB6',
+                      color: '#fff',
+                      'z-index': 999,
+                      width: 200,
+                      height: 50,
+                      padding: '16px 9px'
+                    }).text('Error loading article');
+      !$('.error').length && $('body').append(elem);
+      elem.bind('click', function(){elem.remove()});
+    });
+
     this.showEditor();
   };
 
