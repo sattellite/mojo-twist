@@ -6,12 +6,13 @@ function(base){
   return len > 0 ? new Array(len).join('0')+nr : nr;
 };
 
-var Editor = function() {
+var Editor = function(c) {
   this.$textarea = null;
   this.$preview  = false;
   this.$nextTab  = [];
   this.$inputs   = [];
   this.$loader   = [];
+  this.$create   = (typeof c !== 'undefined' && c === 'create') ? true : false;
   this.$lazyload = function() { $('.container img').lazyload({ skip_invisible : false, effect: "fadeIn" }) };
 
   var that = this;
@@ -81,7 +82,7 @@ Editor.prototype = {
         parent     = $('div.white'),
         t          = this;
 
-    $.each(['edit', 'publish', 'remove'], function(){ $('.btn.'+this).remove() });
+    $.each(['edit', 'publish', 'remove', 'create'], function(){ $('.btn.'+this).remove() });
     parent.append(btn_cancel);
     parent.prepend(btn_save);
 
@@ -91,19 +92,27 @@ Editor.prototype = {
 
   __getMarkdown: function(elem) {
     var result = null,
+        d      = null,
         url    = window.location+'.json';
 
-    var d = this._defer($.ajax({
-      url: url,
-      dataType: 'json',
-    }), elem);
+    if( this.$create) {
+      d = this._defer({
+            article:{
+              slug   : 'new-article-url',
+              tags   : 'tag1, tag2, tag3',
+              title  : 'New article title',
+              content: 'Write your ideas here',
+              date   : Date.now()/1000}
+            });
+    } else {
+      d = this._defer($.ajax({ url: url, dataType: 'json'}), elem);
+    }
     return d;
   },
 
   showEditor: function() {
     var that = this;
     this.__getMarkdown(window).done( function(data) {
-
       that.__clearPreload();
       that.__editorBtns();
       var data    = data.article,

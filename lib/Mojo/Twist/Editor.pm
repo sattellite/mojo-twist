@@ -17,6 +17,10 @@ sub articles {
   $self->render('editor-article', title => 'Admin interface', years => $years);
 }
 
+sub create {
+  shift->render('editor-create');
+}
+
 sub drafts {
   my $self  = shift;
   my $config = $self->config;
@@ -143,15 +147,24 @@ sub save {
   my $tags   = $self->param('tags');
   my $data   = $self->param('content');
 
+  $oslug = $slug if ($oslug eq 'new-article-url');
+
   my $article = Mojo::Twist::Articles->new(
     path         => $config->{drafts_root},
     article_args => {default_author => $config->{author}}
   )->find(slug => $oslug);
 
+
   $date ||= strftime "%Y-%m-%d", localtime;
   my $file;
   if ($article) {
      $file = $article->{file}->{path};
+
+    if ($oslug ne $slug) {
+      unlink $file;
+      $oslug = $slug;
+      $file = $config->{drafts_root} . "/$date-$slug.md";
+    }
   }
   else {
     $file = $config->{drafts_root} . "/$date-$slug.md";

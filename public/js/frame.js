@@ -92,9 +92,16 @@ $(function() {
   /* END Remove button */
 
   /* Edit button */
-  var edit = $('button.edit');//,
+  var edit = $('button.edit');
   edit.bind('click', function(e){
     var ed = new Editor;
   });
   /* END Edit button */
+
+  /* Create button */
+  var create = $('button.create');
+  create.bind('click', function(e){
+    var ed = new Editor('create');
+  });
+  /* END Create button */
 });
