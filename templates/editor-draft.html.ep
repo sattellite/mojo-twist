@@ -18,5 +18,5 @@
   </ul>
 </div>
 <div class="editor-frame">
-  <iframe class="frame" id="frame" src="about:blank"></iframe>
+  <iframe class="frame" id="frame" src="/edit/create"></iframe>
 </div>

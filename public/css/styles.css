@@ -48,6 +48,7 @@
 .icon-cut:before { content: '\e811'; }
 .icon-logout:before { content: '\e812'; }
 .icon-remove:before { content: '\e813'; }
+.icon-create:before { content: '\e814'; }
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -783,6 +784,7 @@ header.editor > div > h1 {
 }
 
 .publish,
+.create,
 .save {
   color: #FFF;
   background-color: #5CB85C;
@@ -792,6 +794,9 @@ header.editor > div > h1 {
 .publish:active,
 .publish:hover,
 .publish:focus,
+.create:active,
+.create:hover,
+.create:focus,
 .save:active,
 .save:hover,
 .save:focus {

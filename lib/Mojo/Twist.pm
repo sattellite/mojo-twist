@@ -1,6 +1,6 @@
 package Mojo::Twist;
 use Mojo::Base 'Mojolicious';
-our $VERSION = '0.3';
+our $VERSION = '0.3.1';
 
 # This method will run once at server start
 sub startup {
@@ -63,6 +63,7 @@ sub startup {
   $auth->get('/edit')->to('editor#view');
   $auth->get('/edit/articles')->to('editor#articles');
   $auth->get('/edit/drafts')->to('editor#drafts');
+  $auth->get('/edit/create')->to('editor#create');
   $auth->get('/edit/preview/:year/:month/:slug')->to('editor#preview');
   $auth->get('/edit/preview/draft/:year/:month/:slug')->to('editor#preview', draft => 1);
   $auth->post('/edit/prerender')->to('editor#prerender');
