@@ -161,7 +161,7 @@ sub save {
   if ($article) {
      $file = $article->{file}->{path};
 
-    if ($oslug ne $slug) {
+    if ($oslug ne $slug and $slug ne '') {
       unlink $file;
       $oslug = $slug;
       $file = $config->{drafts_root} . "/$date-$slug.md";
