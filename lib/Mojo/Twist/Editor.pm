@@ -1,5 +1,6 @@
 package Mojo::Twist::Editor;
 use Mojo::Base 'Mojolicious::Controller';
+use Mojo::Util qw(spurt encode);
 use Mojo::Twist::Articles;
 use Mojo::Twist::Renderer;
 use File::Copy qw(move);
@@ -221,12 +222,10 @@ sub _write {
   $tags  ||= '';
   $slug  ||= '';
 
-  open my $fh, '>', $file or die $!;
-  print $fh "Title: $title\n";
-  print $fh "Tags: $tags\n";
-  print $fh "Slug: $slug\n" if $slug;
-  print $fh "\n$data\n";
-  close $fh;
+  my @data = ("Title: $title", "Tags: $tags", $slug ? "Slug: $slug" : '', "\n$data\n");
+  @data = map { encode 'UTF-8', $_ } @data;
+  spurt join("\n", @data), $file;
+
   return;
 }
 
