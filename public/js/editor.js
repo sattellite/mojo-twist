@@ -105,7 +105,7 @@ Editor.prototype = {
               date   : Date.now()/1000}
             });
     } else {
-      d = this._defer($.ajax({ url: url, dataType: 'json'}), elem);
+      d = this._defer($.ajax({ url: url, cache: false, dataType: 'json'}), elem);
     }
     return d;
   },
